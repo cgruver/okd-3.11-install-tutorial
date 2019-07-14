@@ -116,4 +116,4 @@ We are going to manually edit the network config files to set up bridged network
 
 ### Your host is now ready for Guest VMs to move in.
 
-If this particular host is also going to be your control-plane, go back now and complete the [control-plane](Control_Plane\README.md) setup.
+If this particular host is also going to be your control-plane, go back now and complete the [control-plane](Control_Plane/README.md) setup.

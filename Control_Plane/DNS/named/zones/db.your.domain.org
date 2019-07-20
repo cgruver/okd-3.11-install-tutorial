@@ -1,0 +1,47 @@
+@       IN      SOA     ocp-controller01.your.domain.com. admin.your.domain.com. (
+             3          ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+; name servers - NS records
+    IN      NS     ocp-controller01.your.domain.com.
+
+; name servers - A records
+ocp-controller01.your.domain.com.      IN      A      10.10.11.10
+
+; 10.10.11.0/24 - A records
+nexus.your.domain.com.           IN      A      10.10.11.10
+kvmhost01.your.domain.com.       IN      A      10.10.11.200
+kvmhost02.your.domain.com.       IN      A      10.10.11.201
+kvmhost03.your.domain.com.       IN      A      10.10.11.202
+kvmhost04.your.domain.com.       IN      A      10.10.11.203
+kvmhost05.your.domain.com.       IN      A      10.10.11.204
+kvmhost06.your.domain.com.       IN      A      10.10.11.205
+kvmhost07.your.domain.com.       IN      A      10.10.11.206
+kvmhost08.your.domain.com.       IN      A      10.10.11.207
+prd-lb01.your.domain.com.        IN      A      10.10.11.50
+*.prd-infra.your.domain.com.     IN      A      10.10.11.50
+*.prd-apps.your.domain.com.      IN      A      10.10.11.50
+prd-master01.your.domain.com.    IN      A      10.10.11.60
+prd-master02.your.domain.com.    IN      A      10.10.11.61
+prd-master03.your.domain.com.    IN      A      10.10.11.62
+prd-infranode01.your.domain.com. IN      A      10.10.11.63
+prd-infranode02.your.domain.com. IN      A      10.10.11.64
+prd-infranode03.your.domain.com. IN      A      10.10.11.65
+prd-appnode01.your.domain.com.   IN      A      10.10.11.70
+prd-appnode02.your.domain.com.   IN      A      10.10.11.71
+prd-appnode03.your.domain.com.   IN      A      10.10.11.72
+prd-sannode01.your.domain.com.   IN      A      10.10.11.80
+prd-sannode02.your.domain.com.   IN      A      10.10.11.81
+prd-sannode03.your.domain.com.   IN      A      10.10.11.82
+prd-sannode04.your.domain.com.   IN      A      10.10.11.83
+prd-dbnode01.your.domain.com.    IN      A      10.10.11.90
+prd-dbnode02.your.domain.com.    IN      A      10.10.11.91
+prd-dbnode03.your.domain.com.    IN      A      10.10.11.92
+*.dev-infra.your.domain.com.     IN      A      10.10.11.100
+*.dev-apps.your.domain.com.      IN      A      10.10.11.110
+dev-master01.your.domain.com.    IN      A      10.10.11.100
+dev-infranode01.your.domain.com. IN      A      10.10.11.110
+dev-appnode01.your.domain.com.   IN      A      10.10.11.120

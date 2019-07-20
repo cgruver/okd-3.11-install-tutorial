@@ -1,0 +1,9 @@
+zone "your.domain.com" {
+    type master;
+    file "/etc/named/zones/db.your.domain.com"; # zone file for your domain.
+};
+
+zone "11.10.10.in-addr.arpa" {
+    type master;
+    file "/etc/named/zones/db.10.10.11";  # zone file for reverse lookup in the 10.10.11.0/24 subnet
+};

@@ -1,5 +1,5 @@
 ## Installing KVM packages
-1. Install some common tools:
+1. Install some common tools that are useful on all of our hosts:
 
     `# yum -y install wget git net-tools bind-utils bash-completion nfs-utils`
 

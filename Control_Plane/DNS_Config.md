@@ -85,3 +85,7 @@ nameserver 10.10.11.10
 Save the file.
 
 Your MacBook should now query your new DNS server for entries in your new domain.  __Note:__ If your MacBook is on a different network and is routed to your Lab network, then the `acl` entry in your DNS configuration must allow your external network to query.  Otherwise, you will bang your head wondering why it does not work...  __The ACL is very powerful.  Use it.  Just like you are using firewalld.  Right?  I know you did not disable it when you installed your host...__
+
+### On to the next...
+Now that we have DNS configured, continue on to [Nginx Setup](Nginx_Config.md), or return to the [Control Plane](README.md)
+

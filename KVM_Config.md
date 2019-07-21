@@ -1,28 +1,39 @@
 ## Installing KVM packages
+
 1. Install some common tools that are useful on all of our hosts:
 
-    `# yum -y install wget git net-tools bind-utils bash-completion nfs-utils`
+    ```
+    yum -y install wget git net-tools bind-utils bash-completion nfs-utils
+    ```
 
 1. Install the KVM packages:
 
-    `# yum -y install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install`
+    ```
+    yum -y install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
+    ```
 
 1. Update the OS:
 
-    `# yum -y update`
+    ```
+    yum -y update
+    ```
 
 1. Reboot:
 
-    `# shutdown -r now`
+    ```
+    shutdown -r now
+    ```
 
 ### Set up bridged network for your guest VMs
-We are going to manually edit the network config files to set up bridged networking.  This is also possible with `nmcli` or `nmtui`.  We'll add instructions for that in a later interation.
+
+We are going to manually edit the network config files to set up bridged networking.  This is also possible with `nmcli` or `nmtui`.  We'll add instructions for that in a later iteration.
 
 1. We are going to name our bridge device `br1`.
 
-   `# cd /etc/sysconfig/network-scripts`
-   
-   `# vi ifcfg-br1`
+   ```
+   cd /etc/sysconfig/network-scripts`
+   vi ifcfg-br1
+   ```
 
    Here is an example file:
    ```
@@ -48,6 +59,7 @@ We are going to manually edit the network config files to set up bridged network
    ZONE=public
    NM_CONTROLLED=no
    ```
+
    Replace `IPADDR, PREFIX, GATEWAY, DNS1, and DOMAIN` with the information from the NIC that you configured during the installation.
 
 1. Now we need to modify the configuration for your physical NIC to use the bridge interface.
@@ -78,15 +90,19 @@ We are going to manually edit the network config files to set up bridged network
 
 1. Now comes the fun part.  Remeber the keyboard and display that you used to install the base OS?  You might have them handy at this point because we are going to do something a little reckless.  Don't worry, we'll show you how to do this is a safer and automated way.  But for now, we're going to restart our network services in order to apply our new configuration.
 
-   `# systemctl restart network`
+   ```
+   systemctl restart network
+   ```
 
    If your configuration files are correct, you will retain control of the ssh session when the `systemctl` command completes.  If not, well that's where we need to attach a keyboard and display to gain console access so we can fix our mistake in the config files.
 
 ### Start KMV
-`# systemctl enable libvirtd`
 
-`# systemctl start libvirtd`
+```
+systemctl enable libvirtd
+systemctl start libvirtd
+```
 
 ### Your host is now ready for Guest VMs to move in.
 
-If this particular host is also going to be your control-plane, go back now and complete the [control-plane](../Control_Plane/README.md) setup.
+If this particular host is also going to host your control-plane, go back now and complete the [Control Plane](Control_Plane/README.md) setup.  Otherwise, continue to [KVM Guest Provisioning](Provision_Guest_Nodes/README.md).

@@ -42,15 +42,21 @@ This tutorial includes pre-configured files for you to modify for your specific 
   Let's start with the A records, (forward lookup zone).  Rename the file, `/etc/named/zones/db.your.domain.com`, to reflect your local domain.  Then edit it to reflect the appropriate A records for your setup.
 
   In the example file, there are some entries to take note of:
+
   1. The KVM hosts are named `kvmhost01`, `kvmhost02`, etc...  Modify this to reflect the number of KVM hosts that your lab setup with have.
+  
   1. The control plane server is `ocp-controller01`.  If your control plane is also one of your KVM hosts, then you do not need a separate A record for this.
+  
   1. The Sonatype Nexus server gets it's own alias A record, `nexus.your.domain.com`.  This is not strictly necessary, but I find it useful.  For your lab, make sure that this A record reflects the IP address of the server where you have installed Nexus.
+  
   1. These example files contain references for two OpenShift clusters, a Production Cluster, and a Development cluster.  The production cluser has three each of master, infrastructure, and application (compute) noddes. The development cluster has one each of master, infrastructure, and application nodes.
 
      There are also records for four "SAN" nodes which I use to host a GlusterFS implementation, as well as records for three "DB" hosts which I use to host a MariaDB Galera cluster.  More on these later.
 
      __Remove superflouous entries from these files as needed.__
+  
   1. There are two wildcard records that OpenShift needs.
+  
      * `*.prd-infra.your.domain.com`
      * `*.prd-apps.your.domain.com`
    
@@ -59,6 +65,7 @@ This tutorial includes pre-configured files for you to modify for your specific 
      These wildcard A records need to point to the entry point for your OpenShift cluster.  If you build a cluster with three master nodes and three infrastruture nodes, you will need a load balancer in front of the cluster.  In this case, your wildcard A records will point to the IP address of your load balancer.  Never fear, I will show you how to deploy a load balancer.  
      
      If you are building a simpler cluster, with only one master node and one infrastructure node, then the wildcard records can simply point to the IP address of your nodes.  In this case `prd-infra` will point to your master node IP and `prd-apps` will point to your infrastructure node.  I realize this is slightly confusing.  Master is "infra" and Infra is "apps".  This is really a reflection of the architecture of OpenShift itself.  The "Master" nodes are hosting the infrastructure that manages the OpenShift cluster itself.  The "Infrastructure" nodes are hosting the infrastructure that supports your applications.  This is an oversimplification, but it will suffice for now.
+
 * When you have completed all of your configuration changes, you can test the configuration with the following command:
 
   ```
@@ -81,6 +88,7 @@ systemctl start named
 You can now test DNS resolution.  Try some `pings` or `dig` commands.
 
 ### __Hugely Helpful Tip:__
+
 __If you are using a MacBook for your workstation, you can enable DNS resolution to your lab by creating a file in the `/etc/resolver` directory on your Mac.__
 
 ```

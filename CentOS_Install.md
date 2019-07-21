@@ -9,14 +9,15 @@ I use [balenaEtcher](https://www.balena.io/etcher/) to create a bootable USB key
 You will have to attach monitor, mouse, and keyboard to your NUC for the install.  After the install, these machines will be headless.  So, no need for a complicated KVM setup...  The other, older meaning of KVM...  not confusing at all.
 
 ### Install CentOS
+
 * Network:
-  * Configure the network interface with a fixed IP address
-  * Set the system hostname
+    * Configure the network interface with a fixed IP address
+    * Set the system hostname
 * Storage:
-  * Allocate 50GB for the / filesystem
-  * Do not create a /home filesystem (no users on this system)
-  * Allocate the remaining disk space for the VM guest filesystem
-    * I put my KVM guests in /VirtualMachines 
+    * Allocate 50GB for the / filesystem
+    * Do not create a /home filesystem (no users on this system)
+    * Allocate the remaining disk space for the VM guest filesystem
+        * I put my KVM guests in /VirtualMachines 
 
 After the installation completes, ensure that you can ssh to your host.
 

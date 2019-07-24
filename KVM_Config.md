@@ -36,6 +36,7 @@ We are going to manually edit the network config files to set up bridged network
    ```
 
    Here is an example file:
+
    ```
    TYPE=Bridge
    PROXY_METHOD=none
@@ -69,6 +70,7 @@ We are going to manually edit the network config files to set up bridged network
    `# cp ifcfg-en01 sav.ifcfg-eno1.sav` --Just in case we have to put it back.
 
    `# vi ifcfg-eno1`
+
    ```
    TYPE=Ethernet
    PROXY_METHOD=none
@@ -86,6 +88,7 @@ We are going to manually edit the network config files to set up bridged network
    BRIDGE=br1
    NM_CONTROLLED=no
    ```
+   
    Notice that all of the IP configuration data has been moved to the ifcfg-br1 file.
 
 1. Now comes the fun part.  Remeber the keyboard and display that you used to install the base OS?  You might have them handy at this point because we are going to do something a little reckless.  Don't worry, we'll show you how to do this is a safer and automated way.  But for now, we're going to restart our network services in order to apply our new configuration.

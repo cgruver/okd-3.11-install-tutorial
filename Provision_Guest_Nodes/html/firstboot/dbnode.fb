@@ -1,0 +1,102 @@
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+let i=1
+while [ $i -le 10 ]
+do
+	curl -o /root/.ssh/authorized_keys http://osc-controller01.oscluster.clgcom.org/postinstall/authorized_keys
+	if [ $? -eq 0 ]
+	then
+		break
+	else
+		let i=i+1
+	fi 
+	sleep 2
+done
+if [ ! -f /root/.ssh/authorized_keys ]
+then
+	echo "Failed to copy /root/.ssh/authorized_keys from osc-controller01!  FirstBoot has not run!" > /root/FirstBootFailed
+	exit
+fi
+
+chmod 600 /root/.ssh/authorized_keys
+rm -rf /etc/yum.repos.d/*.repo
+
+cat <<EOF > /etc/yum.repos.d/local-repos.repo
+[local-base]
+name=CentOS Base
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/base/
+gpgcheck=0
+enabled=1
+
+[local-centosplus]
+name=CentOS CentOSPlus
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/centosplus/
+gpgcheck=0
+enabled=1
+
+[local-extras]
+name=CentOS Extras
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/extras/
+gpgcheck=0
+enabled=1
+
+[local-updates]
+name=CentOS Updates
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/updates/
+gpgcheck=0
+enabled=1
+
+[local-openshift]
+name=CentOS OpenShift Origin
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/ocp/
+gpgcheck=0
+enabled=1
+
+[mariadb]
+name=MariaDB
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/mariadb/
+gpgcheck=0
+enabled=1
+EOF
+
+yum clean all
+rm -rf /var/cache/yum
+
+yum -y update
+yum -y install wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct python-rhsm-certificates nfs-utils MariaDB-server MariaDB-client galera-4 policycoreutils-python iscsi-initiator-utils
+
+echo "InitiatorName=iqn.$(hostname)" > /etc/iscsi/initiatorname.iscsi
+
+firewall-cmd --add-service=mysql --permanent
+firewall-cmd --add-port=3306/tcp --permanent
+firewall-cmd --add-port=4567/tcp --permanent
+firewall-cmd --add-port=4567/udp --permanent
+firewall-cmd --add-port=4568/tcp --permanent
+firewall-cmd --add-port=4444/tcp --permanent
+firewall-cmd --reload
+
+# systemctl disable firewalld
+# systemctl stop firewalld
+
+systemctl start mariadb
+mysql --user=root <<EOF
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+EOF
+
+systemctl stop mariadb
+systemctl disable mariadb
+
+curl -o /etc/my.cnf.d/server.cnf http://osc-controller01.oscluster.clgcom.org/postinstall/mariadb-server.cnf
+
+rm -f /etc/sysconfig/selinux
+mv /root/selinux /etc/sysconfig/selinux
+
+/bin/cat /etc/crontab | /bin/grep -v firstboot > /etc/crontab.tmp
+/bin/rm -f /etc/crontab
+/bin/mv /etc/crontab.tmp /etc/crontab
+rm -f $0
+shutdown -r now

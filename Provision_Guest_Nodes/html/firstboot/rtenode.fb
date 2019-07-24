@@ -1,0 +1,88 @@
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+let i=1
+while [ $i -le 10 ]
+do
+	curl -o /root/.ssh/authorized_keys http://osc-controller01.oscluster.clgcom.org/postinstall/authorized_keys
+	if [ $? -eq 0 ]
+	then
+		break
+	else
+		let i=i+1
+	fi 
+	sleep 2
+done
+if [ ! -f /root/.ssh/authorized_keys ]
+then
+	echo "Failed to copy /root/.ssh/authorized_keys from osc-controller01!  FirstBoot has not run!" > /root/FirstBootFailed
+	exit
+fi
+
+chmod 600 /root/.ssh/authorized_keys
+
+rm -rf /etc/yum.repos.d/*.repo
+
+cat <<EOF > /etc/yum.repos.d/local-repos.repo
+[local-base]
+name=CentOS Base
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/base/
+gpgcheck=0
+enabled=1
+
+[local-centosplus]
+name=CentOS CentOSPlus
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/centosplus/
+gpgcheck=0
+enabled=1
+
+[local-extras]
+name=CentOS Extras
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/extras/
+gpgcheck=0
+enabled=1
+
+[local-updates]
+name=CentOS Updates
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/updates/
+gpgcheck=0
+enabled=1
+
+[local-openshift]
+name=CentOS OpenShift Origin
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/ocp/
+gpgcheck=0
+enabled=1
+
+[epel]
+name=CentOS Epel
+baseurl=http://osc-controller01.oscluster.clgcom.org/repos/epel/
+gpgcheck=0
+enabled=1
+EOF
+
+yum clean all
+rm -rf /var/cache/yum
+
+yum -y install wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct  nfs-utils iscsi-initiator-utils haproxy
+curl -o /etc/haproxy/haproxy.cfg http://osc-controller01.oscluster.clgcom.org/postinstall/haproxy.cfg
+yum -y update
+
+echo "InitiatorName=iqn.$(hostname)" > /etc/iscsi/initiatorname.iscsi
+
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --add-port=8080/tcp --permanent
+firewall-cmd --add-port=443/tcp --permanent
+firewall-cmd --add-port=8443/tcp --permanent
+firewall-cmd --reload
+setenforce 0
+systemctl start haproxy
+systemctl enable haproxy
+grep haproxy /var/log/audit/audit.log | audit2allow -M haproxy
+semodule -i haproxy.pp
+setenforce 1
+
+/bin/cat /etc/crontab | /bin/grep -v firstboot > /etc/crontab.tmp
+/bin/rm -f /etc/crontab
+/bin/mv /etc/crontab.tmp /etc/crontab
+rm -f $0
+shutdown -r now

@@ -30,6 +30,8 @@ Optional: NAS device.
 
 I recently came across this little Frankenstein.  The QNAP NAS-Book [TBS-453DX](https://www.qnap.com/en-us/product/tbs-453dx).  This thing is not much bigger than the NUCi7KYK, (the VHS tape).  It has 4 M.2 slots for SSD storage and will serve as an iSCSI server, in addition to all of the other capabilities that QNAP markets it for.  The iSCSI server is what caught my eye!  This thing completes a mini-datacenter setup.  With this device added to my lab, I am able to replicate most of the capabilities that you will find in an enterprise datacenter.
 
+![Picture of my home Lab - Yes, thoses are Looney Toons DVDs behind.](MyLab.jpeg)
+
 Once you have acquired the necessary gear, it's time to start setting it all up.
 
 ### Setting Up your Lab:

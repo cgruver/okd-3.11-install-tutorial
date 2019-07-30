@@ -90,4 +90,4 @@ esac
 
 IP=$(ssh root@${NODE} "dig ${HOSTNAME}.${DOMAIN} +short")
 ssh root@${NODE} "mkdir -p /VirtualMachines/${HOSTNAME}"
-ssh root@${NODE} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${URL}/install/centos/7.5-oscluster ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP}::${GATEWAY}:${NETMASK}:${HOSTNAME}.${DOMAIN}:eth0:none nameserver=${NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1"
+ssh root@${NODE} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${URL}/centos7.5 ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP}::${GATEWAY}:${NETMASK}:${HOSTNAME}.${DOMAIN}:eth0:none nameserver=${NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1"

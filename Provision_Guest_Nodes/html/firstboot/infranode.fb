@@ -20,19 +20,6 @@ fi
 
 chmod 600 /root/.ssh/authorized_keys
 
-#curl -o /etc/pki/ca-trust/source/anchors/nexus.oscluster.clgcom.org.crt http://osc-controller01.oscluster.clgcom.org/postinstall/nexus.oscluster.clgcom.org.crt
-#update-ca-trust
-#mkdir -p "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5000"
-#curl -o "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5000/ca.crt" http://osc-controller01.oscluster.clgcom.org/postinstall/nexus.oscluster.clgcom.org.crt
-
-#keytool -printcert -sslserver nexus.oscluster.clgcom.org:5000 -rfc > /etc/pki/ca-trust/source/anchors/nexus.oscluster.clgcom.org.crt
-#update-ca-trust
-#mkdir -p "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5000"
-#mkdir -p "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5001"
-#keytool -printcert -sslserver nexus.oscluster.clgcom.org:5000 -rfc > "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5000/ca.crt"
-#keytool -printcert -sslserver nexus.oscluster.clgcom.org:5001 -rfc > "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5001/ca.crt"
-#update-ca-trust
-
 rm -rf /etc/yum.repos.d
 mkdir /etc/yum.repos.d
 yum clean all

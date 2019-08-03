@@ -10,31 +10,26 @@ stopVM() {
 		case ${TYPE} in
 			INFRA)
 			#ssh root@${HOSTNAME} "systemctl stop origin-node.service"
-			ssh root@${HOSTNAME} "shutdown -h now"
-         sleep 10
+			ssh root@${HOSTNAME}.${LAB_DOMAIN} "shutdown -h now"
 			;;
 			APP)
 			#ssh root@${HOSTNAME} "systemctl stop origin-node.service"
-			ssh root@${HOSTNAME} "shutdown -h now"
-         sleep 10
+			ssh root@${HOSTNAME}.${LAB_DOMAIN} "shutdown -h now"
 			;;
 			MASTER)
 			#ssh root@${HOSTNAME} "systemctl stop origin-node.service"
 			#ssh root@${HOSTNAME} "systemctl stop origin-master-api.service"
 			#ssh root@${HOSTNAME} "systemctl stop origin-master-controllers.service"
-			ssh root@${HOSTNAME} "shutdown -h now"
-         sleep 10
+			ssh root@${HOSTNAME}.${LAB_DOMAIN} "shutdown -h now"
 			;;
 			SAN)
 			#ssh root@${HOSTNAME} "systemctl stop glusterd"
 			#ssh root@${HOSTNAME} "systemctl stop gluster-blockd"
-			ssh root@${HOSTNAME} "shutdown -h now"
-         sleep 10
+			ssh root@${HOSTNAME}.${LAB_DOMAIN} "shutdown -h now"
 			;;
 			DB)
-			ssh root@${HOSTNAME} "systemctl stop mariadb"
-			ssh root@${HOSTNAME} "shutdown -h now"
-         sleep 10
+			ssh root@${HOSTNAME}.${LAB_DOMAIN} "systemctl stop mariadb"
+			ssh root@${HOSTNAME}.${LAB_DOMAIN} "shutdown -h now"
 			;;
 		esac
 	done

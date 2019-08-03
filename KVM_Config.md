@@ -2,7 +2,7 @@
 
 1. Install some common tools that are useful on all of our hosts:
 
-        yum -y install wget git net-tools bind-utils bash-completion nfs-utils
+        yum -y install wget git net-tools bind-utils bash-completion nfs-utils rsync
 
 1. Install the KVM packages:
 

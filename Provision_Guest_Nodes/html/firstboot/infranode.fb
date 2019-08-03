@@ -3,7 +3,7 @@ chmod 700 /root/.ssh
 let i=1
 while [ $i -le 10 ]
 do
-	curl -o /root/.ssh/authorized_keys http://osc-controller01.oscluster.clgcom.org/postinstall/authorized_keys
+	curl -o /root/.ssh/authorized_keys %%LAB_URL%%/postinstall/authorized_keys
 	if [ $? -eq 0 ]
 	then
 		break
@@ -14,7 +14,7 @@ do
 done
 if [ ! -f /root/.ssh/authorized_keys ]
 then
-	echo "Failed to copy /root/.ssh/authorized_keys from osc-controller01!  FirstBoot has not run!" > /root/FirstBootFailed
+	echo "Failed to copy /root/.ssh/authorized_keys from Control Plane Server!  FirstBoot has not run!" > /root/FirstBootFailed
 	exit
 fi
 
@@ -28,37 +28,37 @@ rm -rf /var/cache/yum
 cat <<EOF > /etc/yum.repos.d/local-repos.repo
 [local-base]
 name=CentOS Base
-baseurl=http://osc-controller01.oscluster.clgcom.org/repos/base/
+baseurl=%%LAB_URL%%/repos/base/
 gpgcheck=0
 enabled=1
 
 [local-centosplus]
 name=CentOS CentOSPlus
-baseurl=http://osc-controller01.oscluster.clgcom.org/repos/centosplus/
+baseurl=%%LAB_URL%%/repos/centosplus/
 gpgcheck=0
 enabled=1
 
 [local-extras]
 name=CentOS Extras
-baseurl=http://osc-controller01.oscluster.clgcom.org/repos/extras/
+baseurl=%%LAB_URL%%/repos/extras/
 gpgcheck=0
 enabled=1
 
 [local-updates]
 name=CentOS Updates
-baseurl=http://osc-controller01.oscluster.clgcom.org/repos/updates/
+baseurl=%%LAB_URL%%/repos/updates/
 gpgcheck=0
 enabled=1
 
 [local-openshift]
 name=CentOS OpenShift Origin
-baseurl=http://osc-controller01.oscluster.clgcom.org/repos/ocp/
+baseurl=%%LAB_URL%%/repos/ocp/
 gpgcheck=0
 enabled=1
 
 [epel]
 name=CentOS Epel
-baseurl=http://osc-controller01.oscluster.clgcom.org/repos/epel/
+baseurl=%%LAB_URL%%/repos/epel/
 gpgcheck=0
 enabled=1
 EOF
@@ -67,7 +67,7 @@ yum clean all
 
 yum -y install wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct docker python-rhsm-certificates glusterfs-fuse nfs-utils iscsi-initiator-utils
 setsebool -P virt_sandbox_use_fusefs on
-curl -o /etc/sysconfig/docker-storage-setup http://osc-controller01.oscluster.clgcom.org/postinstall/docker-storage-setup
+curl -o /etc/sysconfig/docker-storage-setup %%LAB_URL%%/postinstall/docker-storage-setup
 docker-storage-setup
 systemctl enable docker
 yum -y update
@@ -75,9 +75,9 @@ yum -y update
 echo "InitiatorName=iqn.$(hostname)" > /etc/iscsi/initiatorname.iscsi
 
 openssl s_client -showcerts -servername registry.access.redhat.com -connect registry.access.redhat.com:443 </dev/null 2>/dev/null | openssl x509 -text > /etc/rhsm/ca/redhat-uep.pem
-openssl s_client -showcerts -connect nexus.oscluster.clgcom.org:5000 </dev/null 2>/dev/null|openssl x509 -outform PEM > /etc/pki/ca-trust/source/anchors/nexus.oscluster.clgcom.org.crt
-mkdir -p "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5000"
-openssl s_client -showcerts -connect nexus.oscluster.clgcom.org:5000 </dev/null 2>/dev/null|openssl x509 -outform PEM > "/etc/docker/certs.d/nexus.oscluster.clgcom.org:5000/ca.crt"
+openssl s_client -showcerts -connect nexus.%%LAB_DOMAIN%%:5000 </dev/null 2>/dev/null|openssl x509 -outform PEM > /etc/pki/ca-trust/source/anchors/nexus.%%LAB_DOMAIN%%.crt
+mkdir -p "/etc/docker/certs.d/nexus.%%LAB_DOMAIN%%:5000"
+openssl s_client -showcerts -connect nexus.%%LAB_DOMAIN%%:5000 </dev/null 2>/dev/null|openssl x509 -outform PEM > "/etc/docker/certs.d/nexus.%%LAB_DOMAIN%%:5000/ca.crt"
 update-ca-trust
 
 systemctl disable firewalld

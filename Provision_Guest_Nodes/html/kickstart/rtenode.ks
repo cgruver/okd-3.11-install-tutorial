@@ -1,12 +1,13 @@
 auth --enableshadow --passalgo=sha512
-cdrom
+install
+url --url=%%LAB_URL%%/centos/
 text
 firstboot --enable
 ignoredisk --only-use=sda
 keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
-rootpw --iscrypted $6$5x50zyIqz7MGrwQL$Su72Fdz8hX6p1mmc2YUDz0OL0XTIlHbmS.Qa0U/C.FnRj4osgJHj08NRgK0griyhJxk5BX7RWaT3By1aI5jF20
+rootpw --iscrypted %%LAB_PWD%%
 services --enabled="chronyd"
 timezone America/New_York --isUtc
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
@@ -37,7 +38,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 eula --agreed
 
 %post
-curl -o /root/firstboot.sh http://osc-controller01.oscluster.clgcom.org/kickstart/rtenode.fb
+curl -o /root/firstboot.sh %%LAB_URL%%/firstboot/rtenode.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

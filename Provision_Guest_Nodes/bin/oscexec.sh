@@ -21,6 +21,6 @@ for VARS in $(cat ${INVENTORY} | grep -v "#")
 do
 	HOSTNAME=$(echo ${VARS} | cut -d',' -f3)
 	echo ${HOSTNAME}
-	ssh -oStrictHostKeyChecking=no root@${HOSTNAME}.oscluster.clgcom.org "${CMD}"
+	ssh -oStrictHostKeyChecking=no root@${HOSTNAME}.${LAB_DOMAIN} "${CMD}"
 done
 

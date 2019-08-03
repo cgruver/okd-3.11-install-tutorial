@@ -25,6 +25,10 @@ After the installation completes, ensure that you can ssh to your host.
 
     ssh root@10.10.11.10  Substitute the IP of your new host
 
+Create an SSH keypair if you don't already have one:
+
+    ssh-keygen  # Take all the defaults
+
 Enable passwordless SSH:
 
     ssh-copy-id root@10.10.11.10  Substitute the IP of your new host

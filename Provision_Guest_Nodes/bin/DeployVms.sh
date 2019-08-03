@@ -1,11 +1,5 @@
 #!/bin/bash
 
-DOMAIN=your.domain.com
-NAMESERVER=10.10.11.10
-NETMASK=255.255.255.0
-GATEWAY=10.10.11.1
-URL=http://ocp-controller01.your.domain.com
-
 for i in "$@"
 do
 case $i in
@@ -14,23 +8,23 @@ case $i in
     shift # past argument=value
     ;;
     -url=*|--install-url=*)
-    URL="${i#*=}"
+    LAB_URL="${i#*=}"
     shift
     ;;
     -gw=*|--gateway=*)
-    GATEWAY="${i#*=}"
+    LAB_GATEWAY="${i#*=}"
     shift # past argument with no value
     ;;
     -nm=*|--netmask=*)
-    NETMASK="${i#*=}"
+    LAB_NETMASK="${i#*=}"
     shift # past argument with no value
     ;;
     -d=*|--domain=*)
-    DOMAIN="${i#*=}"
+    LAB_DOMAIN="${i#*=}"
     shift # past argument with no value
     ;;
     -dns=*|--nameserver=*)
-    NAMESERVER="${i#*=}"
+    LAB_NAMESERVER="${i#*=}"
     shift # past argument with no value
     ;;
     *)
@@ -48,6 +42,6 @@ do
 	CPU=$(echo ${VARS} | cut -d',' -f5)
 	ROOT_VOL=$(echo ${VARS} | cut -d',' -f6)
 	DATA_VOL=$(echo ${VARS} | cut -d',' -f7)
-	BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${GATEWAY} -nm=${NETMASK} -d=${DOMAIN} -dns=${NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} &
+	BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${LAB_URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${LAB_GATEWAY} -nm=${LAB_NETMASK} -d=${LAB_DOMAIN} -dns=${LAB_NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} &
 done
 

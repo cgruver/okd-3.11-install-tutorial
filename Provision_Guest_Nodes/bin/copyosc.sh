@@ -25,5 +25,5 @@ for VARS in $(cat ${INVENTORY} | grep -v "#")
 do
 	HOSTNAME=$(echo ${VARS} | cut -d',' -f3)
 	echo ${HOSTNAME}
-	scp ${SOURCE} root@${HOSTNAME}:/${DEST}
+	scp ${SOURCE} root@${HOSTNAME}.${LAB_DOMAIN}:/${DEST}
 done

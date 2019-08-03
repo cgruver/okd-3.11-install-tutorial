@@ -1,4 +1,4 @@
-@       IN      SOA     ocp-controller01.your.domain.com. admin.your.domain.com. (
+@       IN      SOA     okd-controller01.your.domain.com. admin.your.domain.com. (
                               3         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
@@ -6,10 +6,10 @@
                          604800 )       ; Negative Cache TTL
 
 ; name servers - NS records
-      IN      NS      ocp-controller01.your.domain.com.
+      IN      NS      okd-controller01.your.domain.com.
 
 ; PTR Records
-10    IN      PTR     ocp-controller01.your.domain.com.
+10    IN      PTR     okd-controller01.your.domain.com.
 200   IN      PTR     kvmhost01.your.domain.com. 
 201   IN      PTR     kvmhost02.your.domain.com. 
 202   IN      PTR     kvmhost03.your.domain.com. 
@@ -18,23 +18,20 @@
 205   IN      PTR     kvmhost06.your.domain.com. 
 206   IN      PTR     kvmhost07.your.domain.com. 
 207   IN      PTR     kvmhost08.your.domain.com. 
-50    IN      PTR     prd-lb01.your.domain.com.  
-60    IN      PTR     prd-master01.your.domain.com. 
-61    IN      PTR     prd-master02.your.domain.com. 
-62    IN      PTR     prd-master03.your.domain.com. 
-63    IN      PTR     prd-infranode01.your.domain.com. 
-64    IN      PTR     prd-infranode02.your.domain.com. 
-65    IN      PTR     prd-infranode03.your.domain.com. 
-70    IN      PTR     prd-appnode01.your.domain.com. 
-71    IN      PTR     prd-appnode02.your.domain.com. 
-72    IN      PTR     prd-appnode03.your.domain.com. 
-80    IN      PTR     prd-sannode01.your.domain.com. 
-81    IN      PTR     prd-sannode02.your.domain.com.  
-82    IN      PTR     prd-sannode03.your.domain.com. 
-83    IN      PTR     prd-sannode04.your.domain.com.
-90    IN      PTR     prd-dbnode01.your.domain.com. 
-91    IN      PTR     prd-dbnode02.your.domain.com. 
-92    IN      PTR     prd-dbnode03.your.domain.com. 
-100   IN      PTR     dev-master01.your.domain.com. 
-110   IN      PTR     dev-infranode01.your.domain.com. 
-120   IN      PTR     dev-appnode01.your.domain.com. 
+50    IN      PTR     okd-lb01.your.domain.com.  
+60    IN      PTR     okd-master01.your.domain.com. 
+61    IN      PTR     okd-master02.your.domain.com. 
+62    IN      PTR     okd-master03.your.domain.com. 
+63    IN      PTR     okd-infranode01.your.domain.com. 
+64    IN      PTR     okd-infranode02.your.domain.com. 
+65    IN      PTR     okd-infranode03.your.domain.com. 
+70    IN      PTR     okd-appnode01.your.domain.com. 
+71    IN      PTR     okd-appnode02.your.domain.com. 
+72    IN      PTR     okd-appnode03.your.domain.com. 
+80    IN      PTR     okd-sannode01.your.domain.com. 
+81    IN      PTR     okd-sannode02.your.domain.com.  
+82    IN      PTR     okd-sannode03.your.domain.com. 
+83    IN      PTR     okd-sannode04.your.domain.com.
+90    IN      PTR     okd-dbnode01.your.domain.com. 
+91    IN      PTR     okd-dbnode02.your.domain.com. 
+92    IN      PTR     okd-dbnode03.your.domain.com. 

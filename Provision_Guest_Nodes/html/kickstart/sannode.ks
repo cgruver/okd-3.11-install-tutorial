@@ -1,39 +1,22 @@
-#version=DEVEL
-# System authorization information
 auth --enableshadow --passalgo=sha512
-# Use CDROM installation media
-cdrom
-# Use graphical install
-#graphical
+install
+url --url=%%LAB_URL%%/centos/
 text
-# Run the Setup Agent on first boot
 firstboot --enable
 ignoredisk --only-use=sda
-# Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
-# System language
 lang en_US.UTF-8
-
-# Root password
-rootpw --iscrypted $6$5x50zyIqz7MGrwQL$Su72Fdz8hX6p1mmc2YUDz0OL0XTIlHbmS.Qa0U/C.FnRj4osgJHj08NRgK0griyhJxk5BX7RWaT3By1aI5jF20
-# System services
+rootpw --iscrypted %%LAB_PWD%%
 services --enabled="chronyd"
-# System timezone
 timezone America/New_York --isUtc
-# System bootloader configuration
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
-# Partition clearing information
-#clearpart --none --initlabel
 clearpart --all 
 zerombr
-# Disk partitioning information
 part /boot --fstype="xfs" --ondisk=sda --size=1024
 part pv.157 --fstype="lvmpv" --ondisk=sda --size=1024 --grow --maxsize=2000000
 volgroup centos --pesize=4096 pv.157
 logvol swap  --fstype="swap" --size=2047 --name=swap --vgname=centos
 logvol /  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=root --vgname=centos
-#part /bricks/brick1 --fstype="xfs" --ondisk=sdb --size=1024 --grow --maxsize=2000000
-#repo --name=centos-updates --mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
 
 %packages
 @^minimal
@@ -56,7 +39,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 eula --agreed
 
 %post
-curl -o /root/firstboot.sh http://osc-controller01.oscluster.clgcom.org/kickstart/sannode.fb
+curl -o /root/firstboot.sh %%LAB_URL%%/firstboot/sannode.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

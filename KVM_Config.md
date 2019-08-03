@@ -2,27 +2,27 @@
 
 1. Install some common tools that are useful on all of our hosts:
 
-    ```
-    yum -y install wget git net-tools bind-utils bash-completion nfs-utils
-    ```
+   ```
+   yum -y install wget git net-tools bind-utils bash-completion nfs-utils
+   ```
 
 1. Install the KVM packages:
 
-    ```
-    yum -y install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
-    ```
+   ```
+   yum -y install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
+   ```
 
 1. Update the OS:
 
-    ```
-    yum -y update
-    ```
+   ```
+   yum -y update
+   ```
 
 1. Reboot:
 
-    ```
-    shutdown -r now
-    ```
+   ```
+   shutdown -r now
+   ```
 
 ### Set up bridged network for your guest VMs
 

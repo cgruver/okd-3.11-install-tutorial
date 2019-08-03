@@ -37,29 +37,29 @@ We are going to manually edit the network config files to set up bridged network
 
     Here is an example file:
 
-     ```
-     TYPE=Bridge
-     PROXY_METHOD=none
-     BROWSER_ONLY=no
-     BOOTPROTO=static
-     DEFROUTE=yes
-     IPV4_FAILURE_FATAL=yes
-     IPV6INIT=no
-     IPV6_AUTOCONF=no
-     IPV6_DEFROUTE=no
-     IPV6_FAILURE_FATAL=no
-     IPV6_ADDR_GEN_MODE=stable-privacy
-     NAME=br1
-     DEVICE=br1
-     ONBOOT=yes
-     IPADDR=10.20.30.10
-     PREFIX=24
-     GATEWAY=10.20.30.1
-     DNS1=10.20.30.5
-     DOMAIN=your.domain.org
-     ZONE=public
-     NM_CONTROLLED=no
-     ```
+```
+TYPE=Bridge
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+IPV6_AUTOCONF=no
+IPV6_DEFROUTE=no
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=br1
+DEVICE=br1
+ONBOOT=yes
+IPADDR=10.20.30.10
+PREFIX=24
+GATEWAY=10.20.30.1
+DNS1=10.20.30.5
+DOMAIN=your.domain.org
+ZONE=public
+NM_CONTROLLED=no
+```
 
     Replace `IPADDR, PREFIX, GATEWAY, DNS1, and DOMAIN` with the information from the NIC that you configured during the installation.
 

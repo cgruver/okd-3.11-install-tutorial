@@ -33,7 +33,7 @@ We are going to manually edit the network config files to set up bridged network
         cd /etc/sysconfig/network-scripts
         vi ifcfg-br1
 
-   Here is an example file:
+    Here is an example file:
 
         TYPE=Bridge
         PROXY_METHOD=none

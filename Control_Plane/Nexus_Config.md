@@ -86,3 +86,5 @@ The `?` in the top right hand corner of the Nexus screen will take you to their 
 
 # ToDo: How to set up Docker registry
 
+If your [control plane](README.md) is now complete, then continue on to [setting up guest VMs](../Provision_Guest_Nodes/README.md).  Otherwise, [go back to finish setting up your control plane server](README.md)
+

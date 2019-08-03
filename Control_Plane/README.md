@@ -14,7 +14,7 @@ I use an Intel NUC8i3BEK for my control plane.  The little box with 32GB of RAM 
 
 First, let's install some useful packages:
 
-`# yum -y install wget git net-tools bash-completion nfs-utils`
+    yum -y install wget git net-tools bind-utils bash-completion nfs-utils rsync
 
 Now, step through each of the tasks below:
 
@@ -22,8 +22,7 @@ Now, step through each of the tasks below:
 1. [Nginx Setup & RPM Repo sync](Nginx_Config.md)
 1. [Sonatype Nexus Setup](Nexus_Config.md)
 
-When you are done configuring your control plane server, continue on with the [Lab Setup](../README.md).
-
+When you are done configuring your control plane server, continue on to [setting up guest VMs](../Provision_Guest_Nodes/README.md).
 
 
 

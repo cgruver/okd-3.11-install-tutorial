@@ -6,13 +6,13 @@ By the end of this tutorial, you will have set up the following components:
 
 * KVM - LibVirt install on base CentOS
 * Control Plane server with:
-  * Bind - DNS provider
-  * Nginx web server hosting all the RPMS for your environment
-  * Sonatype Nexus:
-    * Maven Dependencies
-    * Container Registry
-  * Golang build environment
-  * OpenShift - OKD 3.11 RPMs and Container Images built from source code
+   * Bind - DNS provider
+   * Nginx web server hosting all the RPMS for your environment
+   * Sonatype Nexus:
+      * Maven Dependencies
+      * Container Registry
+   * Golang build environment
+   * OpenShift - OKD 3.11 RPMs and Container Images built from source code
 * Automated provisioning of Guest VMs for your OKD cluster
 * Finally, at least one OKD cluster - depending on your available compute resources
 

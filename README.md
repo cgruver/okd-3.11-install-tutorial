@@ -12,7 +12,7 @@ By the end of this tutorial, you will have set up the following components:
     * Maven Dependencies
     * Container Registry
   * Golang build environment
-  * OpenShift - OKD 3.11 RPMs and Container Images build from source code
+  * OpenShift - OKD 3.11 RPMs and Container Images built from source code
 * Automated provisioning of Guest VMs for your OKD cluster
 * Finally, at least one OKD cluster - depending on your available compute resources
 

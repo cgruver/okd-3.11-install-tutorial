@@ -8,7 +8,7 @@
 
 1. Install development tools:
 
-        yum -y install docker golang zip krb5-devel bsdtar bc jq tito createrepo libassuan-devel
+        yum -y install docker git golang zip krb5-devel bsdtar bc jq tito createrepo libassuan-devel
 
 1. Install Ansible 2.6. Note: The OKD 3.11 Ansible installer does not work with Ansible 2.7 or greater:
 

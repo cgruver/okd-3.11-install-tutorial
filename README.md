@@ -30,7 +30,21 @@ Optional: NAS device.
 
 I recently came across this little Frankenstein.  The QNAP NAS-Book [TBS-453DX](https://www.qnap.com/en-us/product/tbs-453dx).  This thing is not much bigger than the NUCi7KYK, (the VHS tape).  It has 4 M.2 slots for SSD storage and will serve as an iSCSI server, in addition to all of the other capabilities that QNAP markets it for.  The iSCSI server is what caught my eye!  This thing completes a mini-datacenter setup.  With this device added to my lab, I am able to replicate most of the capabilities that you will find in an enterprise datacenter.
 
+My home lab has grown to be almost embarrassing...  but, what can I say, except that I have a VERY understanding wife.
+
 ![Picture of my home Lab - Yes, those are Looney Toons DVDs behind.](MyLab.jpeg)
+
+For your own lab, I would recommend the following:
+
+* 1 x NUC8i3BEK - For your Control Plane and development server
+    * 32GB RAM
+    * 500GB M.2 SATA SSD
+* 1 x NUC6i7KYK - For your Hypervisor
+    * 64GB RAM
+    * 1TB M.2 SATA SSD
+* 1 x GL.iNet GL-AR750S-Ext - For your router
+
+![Picture of my Mini Lab setup.](MiniLab.jpeg)
 
 Once you have acquired the necessary gear, it's time to start setting it all up.
 

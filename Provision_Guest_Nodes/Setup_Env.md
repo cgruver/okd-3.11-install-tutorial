@@ -50,9 +50,9 @@ Now we're going to set up your local environment for the automation I provided.
 1. Now, create a working directory for the kickstart templates:
 
         mkdir lab_work
-        cp -rf ./kickstart lab_work 
-        cp -rf ./firstboot lab_work
-        cp -rf ./postinstall lab_work
+        cp -rf ./html/kickstart lab_work 
+        cp -rf ./html/firstboot lab_work
+        cp -rf ./html/postinstall lab_work
 
 1. Copy your SSH public key into an authorized_keys file to enable passwordless SSH from this system to your guest VMs:
 
@@ -60,25 +60,25 @@ Now we're going to set up your local environment for the automation I provided.
     
 1. Create an encrypted root password string for your guest VMs:
 
-        export LAB_PWD=$(openssl passwd -1 <YourRootPasswordHere>)
+        export LAB_PWD=$(openssl passwd -1 '<YourRootPasswordHere>')
     
 1. Now you are going to use `sed` to populate the template files with the environment variables we set up earlier, and push the complete kickstart files to your Nginx server:
 
         for i in $(ls lab_work/kickstart)
         do
-            sed -i "" "s|%%LAB_URL%%|${LAB_URL}|g" ./lab_work/kickstart/${i}
-            sed -i "" "s|%%LAB_PWD%%|${LAB_PWD}|g" ./lab_work/kickstart/${i}
+            sed -i "s|%%LAB_URL%%|${LAB_URL}|g" ./lab_work/kickstart/${i}
+            sed -i "s|%%LAB_PWD%%|${LAB_PWD}|g" ./lab_work/kickstart/${i}
         done
 
         for i in $(ls lab_work/firstboot)
         do
-           sed -i "" "s|%%LAB_URL%%|${LAB_URL}|g" ./lab_work/firstboot/${i}
-           sed -i "" "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" ./lab_work/firstboot/${i}
-           sed -i "" "s|%%DB_HOST%%|${DB_HOST}|g" ./lab_work/firstboot/${i}
+           sed -i "s|%%LAB_URL%%|${LAB_URL}|g" ./lab_work/firstboot/${i}
+           sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" ./lab_work/firstboot/${i}
+           sed -i "s|%%DB_HOST%%|${DB_HOST}|g" ./lab_work/firstboot/${i}
         done
 
-        sed -i "" "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" ./lab_work/postinstall/mariadb-server.cnf
-        sed -i "" "s|%%DB_HOST%%|${DB_HOST}|g" ./lab_work/postinstall/mariadb-server.cnf
+        sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" ./lab_work/postinstall/mariadb-server.cnf
+        sed -i "s|%%DB_HOST%%|${DB_HOST}|g" ./lab_work/postinstall/mariadb-server.cnf
 
         scp -r ./lab_work/kickstart root@${NGINX_HOST}.${LAB_DOMAIN}:/usr/share/nginx/html
         scp -r ./lab_work/firstboot root@${NGINX_HOST}.${LAB_DOMAIN}:/usr/share/nginx/html

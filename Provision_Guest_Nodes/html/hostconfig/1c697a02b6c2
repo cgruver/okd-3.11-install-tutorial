@@ -1,0 +1,5 @@
+export GATEWAY=10.11.11.1
+export IP=10.11.11.210
+export NAME_SERVER=10.11.11.10
+export NETMASK=255.255.255.0
+export HOST_NAME=oschost11.oscluster.clgcom.org

@@ -2,9 +2,11 @@
 
 I use the [CentOS Minimal ISO](http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso)
 
-This tutorial assumes that you are comfortable installing a Linux OS.
+__This tutorial assumes that you are comfortable installing a Linux OS.__
 
-In a later iteration, we will set up PXE to add automation to our KVM host build process.  But, for now we will use a USB key to boot and install our host OS.
+You can either install via USB Key, or if you are adventurous, (which I assume you are since you are reading this), you can skip this section and instead jump to: [Setting Up a PXE Server](PXE_Setup/README.md).  If you go this route, you will setup an unattended PXE install of your KVM hosts.
+
+__Continue with USB install:__
 
 I use [balenaEtcher](https://www.balena.io/etcher/) to create a bootable USB key from a CentOS ISO ISO.
 

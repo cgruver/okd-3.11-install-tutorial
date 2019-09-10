@@ -24,7 +24,9 @@ The NUC6i7KYK sports a quad-core 6th Generation i7 processor.  It has 2 M.2 slot
 
 I am also a fan of the [NUC8i3BEK](https://ark.intel.com/content/www/us/en/ark/products/126149/intel-nuc-kit-nuc8i3bek.html).  This one is even smaller than the NUC6i7KYK.  It sports a dual-core CPU, supports 32GB of RAM and has a single M.2 slot for an SSD.  I use one of these for my [control plane](Control_Plane/README.md) server.
 
-You will need a network switch, assuming that you already have a router.  I am using a [Netgear GS110EMX](https://www.netgear.com/support/product/GS110EMX.aspx).  It's a great little managed switch with 8 1Gb ports and 2 10Gb ports.  The 10Gb ports are really handy if you also have a NAS device that supports 10Gb network speeds.
+You will need a network switch.  I am using a couple of [Netgear GS110EMX](https://www.netgear.com/support/product/GS110EMX.aspx).  It's a great little managed switch with 8 1Gb ports and 2 10Gb ports.  The 10Gb ports are really handy if you also have a NAS device that supports 10Gb network speeds.  
+
+You will also need a router.  Assuming that you already have a home router, you can use that.  However, if you want something portable and awesome, check out the GL.iNet [GL-AR750S-Ext](https://www.gl-inet.com/products/gl-ar750s/).  This little guy runs OpenWRT which means that you can use it as a router for your lab network, plus - Wireless bridge, VPN, PXE, Http, DNS, etc...  [OpenWRT](https://openwrt.org) is a very powerful networking distro.
 
 Optional: NAS device.
 
@@ -34,7 +36,7 @@ My home lab has grown to be almost embarrassing...  but, what can I say, except 
 
 ![Picture of my home Lab - Yes, those are Looney Toons DVDs behind.](MyLab.jpeg)
 
-For your own lab, I would recommend the following:
+For your own lab, I would recommend starting with the following:
 
 * 1 x NUC8i3BEK - For your Control Plane and development server
     * 32GB RAM
@@ -46,12 +48,16 @@ For your own lab, I would recommend the following:
 
 ![Picture of my Mini Lab setup.](MiniLab.jpeg)
 
+A minimal setup like this will cost a little less than a 13" MacBook Pro with 16GB of RAM.  For that outlay you get 6 CPU cores (12 virtual CPUs), 96GB of RAM, and a really cool travel router!
+
+Check prices at [Amazon.com](https://www.amazon.com) and [B&H Photo Video](https://www.bhphotovideo.com).  I get most of my gear from those two outlets.
+
 Once you have acquired the necessary gear, it's time to start setting it all up.
 
 ### Setting Up your Lab:
 
 1. [Base OS Install](CentOS_Install.md)
-1. [KVM Setup](KVM_COnfig.md)
+1. [KVM Setup](KVM_Config.md)
 1. [Control Plane Setup](Control_Plane/README.md)
 1. [VM Guest Provisioning](Provision_Guest_Nodes/README.md)
 1. [OpenShift build from source](OKD_Install/README.md)
@@ -59,4 +65,4 @@ Once you have acquired the necessary gear, it's time to start setting it all up.
 ### Additional Topics:
 
 * [Nested virtualization](Provision_Guest_Nodes/Nested_KVM.md)
-* [PXE Boot](Provision_Guest_Nodes/PXE.md)
+* [PXE Boot](PXE_Setup/README.md)

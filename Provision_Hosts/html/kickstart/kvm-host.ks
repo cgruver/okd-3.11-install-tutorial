@@ -1,7 +1,7 @@
 auth --enableshadow --passalgo=sha512
 %include /tmp/net-info
 install
-url --url=%%LAB_HTTP_IP%%/install/centos/
+url --url=%%INSTALL_URL%%/install/centos/
 text
 keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
@@ -40,7 +40,7 @@ do
 done
 j=$(cat /sys/class/net/${NET_IF}/address)
 NET_MAC=${j//:}
-curl -o /tmp/net-vars %%LAB_HTTP_IP%%/hostconfig/${NET_MAC}
+curl -o /tmp/net-vars %%INSTALL_URL%%/hostconfig/${NET_MAC}
 source /tmp/net-vars
 cat << EOF > /tmp/net-info
 network  --bootproto=static --device=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --ipv6=auto --activate
@@ -86,7 +86,7 @@ fi
 %end
 
 %post
-curl -o /root/firstboot.sh %%LAB_HTTP_IP%%/firstboot/kvm-host.fb
+curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/kvm-host.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

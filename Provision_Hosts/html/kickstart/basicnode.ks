@@ -1,6 +1,6 @@
 auth --enableshadow --passalgo=sha512
 install
-url --url=%%LAB_URL%%/centos/
+url --url=%%INSTALL_URL%%/centos/
 text
 firstboot --enable
 ignoredisk --only-use=sda
@@ -39,7 +39,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 eula --agreed
 
 %post
-curl -o /root/firstboot.sh %%LAB_URL%%/firstboot/sannode.fb
+curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/basicnode.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

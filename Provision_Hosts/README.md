@@ -2,9 +2,9 @@
 
 Now it's finally time to start provisioning some guest VMs for our OKD cluster.
 
-I have provided some shell scripts and kickstart files to assist with your deployments.  In a further iteration, we'll replace a lot of this with PXE and Ansible.  I started this project before learning Ansible, so I rolled my own automation.
+I have provided some shell scripts and kickstart files to assist with your deployments.  In a further iteration, we may replace a lot of this with Ansible.  I started this project before learning Ansible, so I rolled my own automation.
 
-First, setup your environment for guest provisioning here: [Setup For Guest](Setup_Env.md)
+First, if you haven't already, you need to set up your environment for host provisioning: [Setup For Host Install](Setup_Env.md)
 
 
 Now you can begin setting up guest VMs:

@@ -1,12 +1,11 @@
 auth --enableshadow --passalgo=sha512
 install
-url --url=%%LAB_URL%%/centos/
+url --url=%%INSTALL_URL%%/centos/
 text
 firstboot --enable
 ignoredisk --only-use=sda
 keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
-
 rootpw --iscrypted %%LAB_PWD%%
 services --enabled="chronyd"
 timezone America/New_York --isUtc
@@ -24,9 +23,11 @@ logvol /  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=root --vgna
 @core
 chrony
 kexec-tools
+
 %end
 
 %addon com_redhat_kdump --enable --reserve-mb='auto'
+
 %end
 
 %anaconda
@@ -38,7 +39,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 eula --agreed
 
 %post
-curl -o /root/firstboot.sh %%LAB_URL%%/firstboot/rtenode.fb
+curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/infranode.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

@@ -1,9 +1,8 @@
 auth --enableshadow --passalgo=sha512
 install
-url --url=%%LAB_URL%%/centos/
+url --url=%%INSTALL_URL%%/centos/
 text
 firstboot --enable
-ignoredisk --only-use=sda
 keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 rootpw --iscrypted %%LAB_PWD%%
@@ -13,11 +12,13 @@ bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
 clearpart --all 
 zerombr
 part /boot --fstype="xfs" --ondisk=sda --size=1024
-part pv.157 --fstype="lvmpv" --ondisk=sda --size=1024 --grow --maxsize=2000000
+part pv.157 --fstype="lvmpv" --ondisk=sda --size=1024 --grow --maxsize=200000
 volgroup centos --pesize=4096 pv.157
 logvol swap  --fstype="swap" --size=2047 --name=swap --vgname=centos
-logvol /  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=root --vgname=centos
-
+logvol /  --fstype="xfs" --grow --maxsize=200000 --size=1024 --name=root --vgname=centos
+part pv.158 --fstype="lvmpv" --ondisk=sdb --size=19455 --grow --maxsize=1000000
+volgroup dbvg --pesize=4096 pv.158
+logvol /var/lib/mysql  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=dbfs --vgname=dbvg
 %packages
 @^minimal
 @core
@@ -35,11 +36,10 @@ pwpolicy root --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
 pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 %end
-
 eula --agreed
 
 %post
-curl -o /root/firstboot.sh %%LAB_URL%%/firstboot/infranode.fb
+curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/dbnode.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

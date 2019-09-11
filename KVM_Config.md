@@ -90,4 +90,4 @@ We are going to manually edit the network config files to set up bridged network
 
 ### Your host is now ready for Guest VMs to move in.
 
-If this particular host is also going to host your control-plane, go back now and complete the [Control Plane](Control_Plane/README.md) setup.  Otherwise, continue to [KVM Guest Provisioning](Provision_Guest_Nodes/README.md).
+If this particular host is also going to host your control-plane, go back now and complete the [Control Plane](Control_Plane/README.md) setup.  Otherwise, continue to [KVM Guest Provisioning](Provision_Hosts/README.md).

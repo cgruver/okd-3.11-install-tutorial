@@ -59,10 +59,10 @@ Once you have acquired the necessary gear, it's time to start setting it all up.
 1. [Base OS Install](CentOS_Install.md)
 1. [KVM Setup](KVM_Config.md)
 1. [Control Plane Setup](Control_Plane/README.md)
-1. [VM Guest Provisioning](Provision_Guest_Nodes/README.md)
+1. [VM Guest Provisioning](Provision_Hosts/README.md)
 1. [OpenShift build from source](OKD_Install/README.md)
 
 ### Additional Topics:
 
-* [Nested virtualization](Provision_Guest_Nodes/Nested_KVM.md)
+* [Nested virtualization](Provision_Hosts/Nested_KVM.md)
 * [PXE Boot](PXE_Setup/README.md)

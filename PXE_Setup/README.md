@@ -43,7 +43,45 @@ First we need to set up some file paths and populate them with boot & install fi
     mkdir -p /mnt/sda1/install/centos
     exit
 
-Download the CentOS minimal install image from: [CentOS Minimal Install](http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso)
+Download the CentOS minimal install image from: [CentOS Minimal Install](http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso).  Mount the ISO file, and copy the appropriate files to your router:
+
+I'm using MacOS which is a little annoying when mounting an ISO generated with `genisoimage`:
+
+    mkdir /tmp/centos
+    hdiutil attach -nomount ~/Download/CentOS-7-x86_64-Minimal-1810.iso
+
+You will see output similar to:
+
+    /dev/disk2          	FDisk_partition_scheme
+    /dev/disk2s2        	0xEF                        
+
+Mount the ISO filesystem:
+
+    mount -t cd9660 /dev/disk2 /tmp/centos/
+
+If you are using a Linux OS you should be able to mount it with:
+
+    mkdir /tmp/centos
+    mount /path/to/CentOS-7-x86_64-Minimal-1810.iso /tmp/centos -o loop
+
+Copy the PXE boot files: (substitute your router IP and path to tftpboot & install)
+
+    cd /tmp/centos/EFI/BOOT
+    scp BOOTX64.EFI root@10.11.11.1:/mnt/sda1/tftpboot
+    scp grubx64.efi root@10.11.11.1:/mnt/sda1/tftpboot
+    scp mmx64.efi root@10.11.11.1:/mnt/sda1/tftpboot
+    scp -r fonts root@10.11.11.1:/mnt/sda1/tftpboot
+
+    cd /tmp/centos/images/pxeboot
+    scp initrd.img root@10.11.11.1:/mnt/sda1/tftpboot/networkboot
+    scp vmlinuz root@10.11.11.1:/mnt/sda1/tftpboot/networkboot
+
+    cd /tmp
+    scp -r centos root@10.11.11.1:/mnt/sda1/install
+
+    cd
+    umount /dev/disk2
+    hdiutil detach /dev/disk2
 
 Now, we will enable the tftp server and instruct the DHCP server to send PXE boot info:
 

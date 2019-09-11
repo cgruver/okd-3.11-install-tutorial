@@ -4,7 +4,11 @@ I use the [CentOS Minimal ISO](http://isoredirect.centos.org/centos/7/isos/x86_6
 
 __This tutorial assumes that you are comfortable installing a Linux OS.__
 
-You can either install via USB Key, or if you are adventurous, (which I assume you are since you are reading this), you can skip this section and instead jump to: [Setting Up a PXE Server](PXE_Setup/README.md).  If you go this route, you will setup an unattended PXE install of your KVM hosts.
+You can either install via USB Key, or if you are adventurous, (which I assume you are since you are reading this), you can skip this section and instead jump to: 
+
+[Setting Up a PXE Server](PXE_Setup/README.md).  
+
+If you go this route, you will setup an unattended PXE install of your KVM hosts.
 
 __Continue with USB install:__
 

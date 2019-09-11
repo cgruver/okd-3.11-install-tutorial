@@ -94,5 +94,4 @@ Now we're going to set up your local environment for the automation I provided.
 
         rm -rf ./lab_work
 
-We are now ready to [start provisioning guest VMs](README.md).
-
+We are now ready to [start provisioning guest VMs](README.md) or install a [Bare Metal Host](Install_Bare_Metal.md).

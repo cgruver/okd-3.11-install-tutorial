@@ -1,5 +1,5 @@
-export GATEWAY=10.11.11.1
-export IP=10.11.11.210
-export NAME_SERVER=10.11.11.10
-export NETMASK=255.255.255.0
-export HOST_NAME=oschost11.oscluster.clgcom.org
+export GATEWAY=10.11.11.1                       # Your Router IP
+export IP=10.11.11.210                          # The IP you want this host to have
+export NAME_SERVER=10.11.11.10                  # Your DNS Server
+export NETMASK=255.255.255.0                    # Your Netmask
+export HOST_NAME=kvm-host01.your.domain.com     # The FQDN that you want this host to have

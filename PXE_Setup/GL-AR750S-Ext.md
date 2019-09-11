@@ -60,9 +60,6 @@ Copy the PXE boot files: (substitute your router IP and path to tftpboot & insta
 
     cd /tmp/centos/EFI/BOOT
     scp BOOTX64.EFI root@10.11.11.1:/mnt/sda1/tftpboot
-    scp grubx64.efi root@10.11.11.1:/mnt/sda1/tftpboot
-    scp mmx64.efi root@10.11.11.1:/mnt/sda1/tftpboot
-    scp -r fonts root@10.11.11.1:/mnt/sda1/tftpboot
 
     cd /tmp/centos/images/pxeboot
     scp initrd.img root@10.11.11.1:/mnt/sda1/tftpboot/networkboot

@@ -56,6 +56,8 @@ Now, push that file to your install HTTP server:
 
     scp 1c697a02b6c2 root@<YOUR_INSTALL_SERVER>:/path/to/html/hostconfig
 
+Finally, make sure that you have created DNS `A` and `PTR` records.  [DNS Setup](../Control_Plane/DNS_Config.md)
+
 We are now ready to plug in the NUC and boot it up.
 
 __Caution:__  This is the point at which you might have to attach a keyboard and monitor to your NUC.  We need to ensure that the BIOS is set up to attempt a Network Boot with UEFI, not legacy.  You also need to ensure that `Secure Boot` is disabled in the BIOS.

@@ -126,6 +126,11 @@ Now edit the DHCP configuration:
     filename "BOOTX64.EFI";
     }
 
+Finally, enable DHCP:
+
+    systemctl enable dhcpd
+    systemctl start dhcpd
+
 Regardless of the route that you chose, you should now have an environment ready for PXE Boot!
 
 Assuming that you have followed the steps here: [Host OS Provisioning](../Provision_Hosts/Setup_Env.md), then we are ready to [PXE Boot a bare metal host](../Provision_Hosts/Install_Bare_Metal.md)

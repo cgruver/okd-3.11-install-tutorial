@@ -8,8 +8,8 @@ We are going to set up some automation that will allow us to install and configu
 
 You have a couple of options here:
 
-1. Set up the [GL-AR750S-Ext](https://www.gl-inet.com/products/gl-ar750s/) travel router as your installation server.
-2. Add PXE Boot capabilities to your [Control Plane Server](../Control_Plane/README.md)
+1. Set up the GL-AR750S-Ext travel router as your installation server.
+2. Add PXE Boot capabilities to your Control Plane Server
 
 We are going to set up UEFI booting since some of the newest NUCs have removed Legacy Boot from their BIOS.
 

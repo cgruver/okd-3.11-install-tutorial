@@ -57,3 +57,11 @@ Now, push that file to your install HTTP server:
     scp 1c697a02b6c2 root@<YOUR_INSTALL_SERVER>:/path/to/html/hostconfig
 
 We are now ready to plug in the NUC and boot it up.
+
+__Caution:__  This is the point at which you might have to attach a keyboard and monitor to your NUC.  We need to ensure that the BIOS is set up to attempt a Network Boot with UEFI, not legacy.  You also need to ensure that `Secure Boot` is disabled in the BIOS.
+
+__Take this opportunity to apply the latest BIOS to your NUC__
+
+You won't need the keyboard or mouse again, until it's time for another BIOS update...  Eventually we'll figure out how to push those from the OS too.  ;-)
+
+The last thing that I've prepared for you is the ability to reinstall your OS.  Check it out here: [OS Re-install](ReInstall_Bare_Metal.md)

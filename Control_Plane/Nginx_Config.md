@@ -50,7 +50,7 @@ To refresh your RPM repositories, run this script again, or better yet, create a
 
 Next, we need to set up the Nginx server to serve up the CentOS installation files for our guest VMs
 
-    mkdir -p /usr/share/nginx/html/centos
+    mkdir -p /usr/share/nginx/html/install/centos
     wget https://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
     mount -o loop CentOS-7-x86_64-Minimal.iso /tmp/centos-iso-mount
     rsync -av /tmp/centos-iso-mount/ /usr/share/nginx/html/centos/

@@ -35,12 +35,16 @@ First we need to set up some file paths and populate them with boot & install fi
     mkdir -p /mnt/sda1/install/centos
     exit
 
-Download the CentOS minimal install image from: [CentOS Minimal Install](http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso).  Mount the ISO file, and copy the appropriate files to your router:
+Download the CentOS minimal install image:
+
+    wget https://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
+
+Mount the ISO file, and copy the appropriate files to your router:
 
 I'm using MacOS which is a little annoying when mounting an ISO generated with `genisoimage`:
 
     mkdir /tmp/centos
-    hdiutil attach -nomount ~/Download/CentOS-7-x86_64-Minimal-1810.iso
+    hdiutil attach -nomount ~/Download/CentOS-7-x86_64-Minimal.iso
 
 You will see output similar to:
 
@@ -54,7 +58,7 @@ Mount the ISO filesystem:
 If you are using a Linux OS you should be able to mount it with:
 
     mkdir /tmp/centos
-    mount /path/to/CentOS-7-x86_64-Minimal-1810.iso /tmp/centos -o loop
+    mount /path/to/CentOS-7-x86_64-Minimal.iso /tmp/centos -o loop
 
 Copy the PXE boot files: (substitute your router IP and path to tftpboot & install)
 

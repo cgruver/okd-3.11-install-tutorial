@@ -1,7 +1,7 @@
 auth --enableshadow --passalgo=sha512
 %include /tmp/net-info
 install
-url --url=%%INSTALL_URL%%/install/centos/
+url --url=%%INSTALL_URL%%/centos/
 text
 keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8

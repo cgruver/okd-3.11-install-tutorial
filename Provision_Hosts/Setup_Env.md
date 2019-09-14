@@ -17,7 +17,7 @@ Now we're going to set up your local environment for the automation I provided.
         LAB_NETMASK=255.255.255.0   # The network mask of your lab network
         LAB_GATEWAY=10.10.11.1      # Your router IP address
         INSTALL_HOST_IP=10.10.11.1  # The IP of the host serving the install repo (your PXE server or your control plane server)
-        INSTALL_ROOT=/usr/share/nginx/html
+        INSTALL_ROOT=/usr/share/nginx/html/install
         REPO_HOST=ocp-controller01  # Your Control Plane server
 
 1. Create a script to set your environment:
@@ -34,7 +34,7 @@ Now we're going to set up your local environment for the automation I provided.
         export INSTALL_HOST_IP=${INSTALL_HOST_IP}
         export INSTALL_ROOT=${INSTALL_ROOT}
         export REPO_URL=http://${REPO_HOST}.${LAB_DOMAIN}
-        export INSTALL_URL=http://${INSTALL_HOST_IP}
+        export INSTALL_URL=http://${INSTALL_HOST_IP}/install
         EOF
 
     This script you just created will set your environment and PATH for guest VM provisioning.  Run this before you start provisioning VMs

@@ -8,7 +8,7 @@ case $i in
     shift # past argument=value
     ;;
     -url=*|--install-url=*)
-    LAB_URL="${i#*=}"
+    INSTALL_URL="${i#*=}"
     shift
     ;;
     -gw=*|--gateway=*)
@@ -42,6 +42,6 @@ do
 	CPU=$(echo ${VARS} | cut -d',' -f5)
 	ROOT_VOL=$(echo ${VARS} | cut -d',' -f6)
 	DATA_VOL=$(echo ${VARS} | cut -d',' -f7)
-	BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${LAB_URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${LAB_GATEWAY} -nm=${LAB_NETMASK} -d=${LAB_DOMAIN} -dns=${LAB_NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} &
+	BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${INSTALL_URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${LAB_GATEWAY} -nm=${LAB_NETMASK} -d=${LAB_DOMAIN} -dns=${LAB_NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} &
 done
 

@@ -88,6 +88,6 @@ case $TYPE in
 	;;
 esac
 
-IP=$(ssh root@${NODE} "dig ${HOSTNAME}.${LAB_DOMAIN} +short")
+IP=$(dig ${HOSTNAME}.${LAB_DOMAIN} +short)
 ssh root@${NODE}.${LAB_DOMAIN} "mkdir -p /VirtualMachines/${HOSTNAME}"
 ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1"

@@ -36,6 +36,8 @@ Now let's build OpenSHift from source!
         export ORG=openshift
         export TAG=v3.11
         export REGISTRY="nexus.<YOUR.DOMAIN.COM>:5001"
+        make build
+        make build-image
 
 1. Build Metrics:
 
@@ -49,10 +51,8 @@ Now let's build OpenSHift from source!
         git submodule update
         cd hack
         ./build-images.sh --version=v3.11.0
-        make build
-        make build-image
 
-1. Build Logging:
+2. Build Logging:
 
         cd $GOPATH/src/github.com/openshift
         git clone --recurse-submodules https://github.com/openshift/origin-aggregated-logging.git
@@ -65,7 +65,7 @@ Now let's build OpenSHift from source!
         export PREFIX="nexus.<YOUR.DOMAIN.COM>:5001/openshift/origin-"
         make
 
-1. Push Images to Nexus Registry
+3. Push Images to Nexus Registry
 
         docker login -u admin nexus.<YOUR.DOMAIN.COM>:5001
 
@@ -83,7 +83,7 @@ Now let's build OpenSHift from source!
         	docker push ${i}:v3.11.0
         done
 
-1. We are now ready to install an OKD 3.11 cluster!
+4. We are now ready to install an OKD 3.11 cluster!
 
     [Install OKD 3.11](OKD_Install.md)
 

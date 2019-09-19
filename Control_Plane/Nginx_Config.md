@@ -26,11 +26,11 @@ Install and start Nginx:
 
 Create directories to hold all of the RPMs:
 
-    mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates}
+    mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates,centos-gluster6}
 
 Now, synch the repositories into the directories we just created:  (This will take a while)
 
-    LOCAL_REPOS="base centosplus extras updates epel"
+    LOCAL_REPOS="base centosplus extras updates epel centos-gluster6"
     for REPO in ${LOCAL_REPOS}
     do
         reposync -g -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/
@@ -41,7 +41,7 @@ Our Nginx server is now ready to serve up RPMs for our guest VM installations.
 
 To refresh your RPM repositories, run this script again, or better yet, create a cron job to run it periodically.
 
-    LOCAL_REPOS="base centosplus extras updates epel"
+    LOCAL_REPOS="base centosplus extras updates epel centos-gluster6"
     for REPO in ${LOCAL_REPOS}
     do
         reposync -g -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/

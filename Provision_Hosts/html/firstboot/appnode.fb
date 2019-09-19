@@ -58,6 +58,12 @@ name=CentOS Epel
 baseurl=%%REPO_URL%%/repos/epel/
 gpgcheck=0
 enabled=1
+
+[centos-gluster6]
+name=CentOS Gluster 6
+baseurl=%%REPO_URL%%/repos/gluster-6/
+gpgcheck=0
+enabled=1
 EOF
 
 yum clean all

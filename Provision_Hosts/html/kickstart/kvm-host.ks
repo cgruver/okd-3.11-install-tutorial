@@ -15,6 +15,7 @@ timezone America/New_York --isUtc
 @core
 chrony
 kexec-tools
+yum-utils
 
 %end
 
@@ -86,6 +87,11 @@ fi
 %end
 
 %post
+yum-config-manager --disable base
+yum-config-manager --disable updates
+yum-config-manager --disable extras
+yum-config-manager --add-repo %%INSTALL_URL%%/postinstall/local-repos.repo
+
 curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/kvm-host.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab

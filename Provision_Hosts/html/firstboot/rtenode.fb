@@ -20,49 +20,6 @@ fi
 
 chmod 600 /root/.ssh/authorized_keys
 
-rm -rf /etc/yum.repos.d/*.repo
-
-cat <<EOF > /etc/yum.repos.d/local-repos.repo
-[local-base]
-name=CentOS Base
-baseurl=%%REPO_URL%%/repos/base/
-gpgcheck=0
-enabled=1
-
-[local-centosplus]
-name=CentOS CentOSPlus
-baseurl=%%REPO_URL%%/repos/centosplus/
-gpgcheck=0
-enabled=1
-
-[local-extras]
-name=CentOS Extras
-baseurl=%%REPO_URL%%/repos/extras/
-gpgcheck=0
-enabled=1
-
-[local-updates]
-name=CentOS Updates
-baseurl=%%REPO_URL%%/repos/updates/
-gpgcheck=0
-enabled=1
-
-[local-openshift]
-name=CentOS OpenShift Origin
-baseurl=%%REPO_URL%%/repos/ocp/
-gpgcheck=0
-enabled=1
-
-[epel]
-name=CentOS Epel
-baseurl=%%REPO_URL%%/repos/epel/
-gpgcheck=0
-enabled=1
-EOF
-
-yum clean all
-rm -rf /var/cache/yum
-
 yum -y install wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct  nfs-utils iscsi-initiator-utils haproxy
 curl -o /etc/haproxy/haproxy.cfg %%INSTALL_URL%%/postinstall/haproxy.cfg
 yum -y update

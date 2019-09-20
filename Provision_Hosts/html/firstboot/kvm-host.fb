@@ -19,49 +19,6 @@ then
 fi
 
 chmod 600 /root/.ssh/authorized_keys
-rm -rf /etc/yum.repos.d/*.repo
-
-cat <<EOF > /etc/yum.repos.d/local-repos.repo
-[local-base]
-name=CentOS Base
-baseurl=%%REPO_URL%%/repos/base/
-gpgcheck=0
-enabled=1
-
-[local-centosplus]
-name=CentOS CentOSPlus
-baseurl=%%REPO_URL%%/repos/centosplus/
-gpgcheck=0
-enabled=1
-
-[local-extras]
-name=CentOS Extras
-baseurl=%%REPO_URL%%/repos/extras/
-gpgcheck=0
-enabled=1
-
-[local-updates]
-name=CentOS Updates
-baseurl=%%REPO_URL%%/repos/updates/
-gpgcheck=0
-enabled=1
-
-[epel]
-name=CentOS Epel
-baseurl=%%REPO_URL%%/repos/epel/
-gpgcheck=0
-enabled=1
-
-[kvm-common]
-name=CentOS Epel
-baseurl=%%REPO_URL%%/repos/kvm-common/
-gpgcheck=0
-enabled=1
-
-EOF
-
-yum clean all
-rm -rf /var/cache/yum
 
 yum -y install iscsi-initiator-utils libvirt libvirt-devel libvirt-daemon-kvm qemu-kvm jq golang-bin gcc-c++ golang docker zip krb5-devel bsdtar bc libassuan-devel wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct nfs-utils 
 yum -y update

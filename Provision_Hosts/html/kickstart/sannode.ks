@@ -23,6 +23,7 @@ logvol /  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=root --vgna
 @core
 chrony
 kexec-tools
+yum-utils
 
 %end
 
@@ -39,6 +40,11 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 eula --agreed
 
 %post
+yum-config-manager --disable base
+yum-config-manager --disable updates
+yum-config-manager --disable extras
+yum-config-manager --add-repo %%INSTALL_URL%%/postinstall/local-repos.repo
+
 curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/sannode.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab

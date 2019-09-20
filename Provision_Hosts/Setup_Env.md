@@ -87,6 +87,7 @@ Now we're going to set up your local environment for the automation I provided.
 
         sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" ./lab_work/postinstall/mariadb-server.cnf
         sed -i "s|%%DB_HOST%%|${DB_HOST}|g" ./lab_work/postinstall/mariadb-server.cnf
+        sed -i "s|%%DB_HOST%%|${REPO_URL}|g" ./lab_work/postinstall/local-repos.repo
 
         scp -r ./lab_work/kickstart root@${INSTALL_HOST_IP}:${INSTALL_ROOT}
         scp -r ./lab_work/firstboot root@${INSTALL_HOST_IP}:${INSTALL_ROOT}

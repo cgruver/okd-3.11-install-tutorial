@@ -33,9 +33,6 @@ firewall-cmd --add-port=4568/tcp --permanent
 firewall-cmd --add-port=4444/tcp --permanent
 firewall-cmd --reload
 
-# systemctl disable firewalld
-# systemctl stop firewalld
-
 systemctl start mariadb
 mysql --user=root <<EOF
 DELETE FROM mysql.user WHERE User='';
@@ -50,7 +47,6 @@ systemctl disable mariadb
 
 curl -o /etc/my.cnf.d/server.cnf %%INSTALL_URL%%/postinstall/mariadb-server.cnf
 
-rm -f /etc/sysconfig/selinux
 mv /root/selinux /etc/sysconfig/selinux
 
 /bin/cat /etc/crontab | /bin/grep -v firstboot > /etc/crontab.tmp

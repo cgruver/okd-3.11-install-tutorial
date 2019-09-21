@@ -58,7 +58,6 @@ mkdir -p /root/bin
 curl -o /root/bin/rebuildhost.sh %%INSTALL_URL%%/postinstall/rebuildhost.sh
 chmod 700 /root/bin/rebuildhost.sh
 
-rm -f /etc/sysconfig/selinux
 mv /root/selinux /etc/sysconfig/selinux
 
 /bin/cat /etc/crontab | /bin/grep -v firstboot > /etc/crontab.tmp

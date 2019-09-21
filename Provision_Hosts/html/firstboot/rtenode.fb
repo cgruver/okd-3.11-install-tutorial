@@ -36,7 +36,8 @@ systemctl start haproxy
 systemctl enable haproxy
 grep haproxy /var/log/audit/audit.log | audit2allow -M haproxy
 semodule -i haproxy.pp
-setenforce 1
+
+mv /root/selinux /etc/sysconfig/selinux
 
 /bin/cat /etc/crontab | /bin/grep -v firstboot > /etc/crontab.tmp
 /bin/rm -f /etc/crontab

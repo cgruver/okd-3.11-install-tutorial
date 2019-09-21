@@ -12,6 +12,39 @@ Install the EPEL repository and the RPM repository utilities:
 
 If you look at the contents of `/etc/yum.repos.d`, you should see files called `CentOS-Base.repo` and `epel.repo`.  These files contain the specifications for the repositories that we are going to synchronize.  `base, updates, extras, centosplus, and epel`
 
+Now, let's add repositories for `KVM, GlusterFS, and MariaDB`.
+
+    echo <<EOF > /etc/yum.repos.d/kvm-common.repo
+    [kvm-common]
+    name=CentOS Epel
+    baseurl=http://mirror.centos.org/centos/7/virt/x86_64/kvm-common/
+    gpgcheck=0
+    enabled=1
+    EOF
+    
+    cat <<EOF > /etc/yum.repos.d/centos-gluster6
+    [centos-gluster6]
+    baseurl=https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/RHEL/el-$releasever/$basearch/
+    enabled=1
+    gpgcheck=1
+    gpgkey=https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
+
+    [centos-gluster6-noarch]
+    baseurl=https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/RHEL/el-$releasever/noarch
+    enabled=1
+    gpgcheck=1
+    gpgkey=https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
+    EOF
+
+    cat <<EOF > /etc/yum.repos.d/MariaDB.repo
+    [mariadb]
+    name = MariaDB
+    baseurl = http://yum.mariadb.org/10.4/centos7-amd64
+    enabled=1
+    gpgcheck=0
+    EOF
+
+
 We need to open firewall ports for HTTP/S so that we can access our Nginx server:
 
     firewall-cmd --permanent --add-service=http
@@ -26,11 +59,11 @@ Install and start Nginx:
 
 Create directories to hold all of the RPMs:
 
-    mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates,centos-gluster6}
+    mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates, mariadb, kvm-common, centos-gluster6, centos-gluster6-noarch}
 
 Now, synch the repositories into the directories we just created:  (This will take a while)
 
-    LOCAL_REPOS="base centosplus extras updates epel centos-gluster6"
+    LOCAL_REPOS="base centosplus extras updates epel mariadb kvm-common centos-gluster6 centos-gluster6-noarch"
     for REPO in ${LOCAL_REPOS}
     do
         reposync -g -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/
@@ -41,7 +74,7 @@ Our Nginx server is now ready to serve up RPMs for our guest VM installations.
 
 To refresh your RPM repositories, run this script again, or better yet, create a cron job to run it periodically.
 
-    LOCAL_REPOS="base centosplus extras updates epel centos-gluster6"
+    LOCAL_REPOS="base centosplus extras updates epel mariadb kvm-common centos-gluster6 centos-gluster6-noarch"
     for REPO in ${LOCAL_REPOS}
     do
         reposync -g -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/

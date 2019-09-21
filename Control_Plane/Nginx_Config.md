@@ -8,32 +8,19 @@ We are also going to copy the CentOS minimal install ISO into our Nginx server.
 Install the EPEL repository and the RPM repository utilities:
 
     yum -y install epel-release
+    yum -y install centos-release-gluster6
     yum -y install createrepo
 
 If you look at the contents of `/etc/yum.repos.d`, you should see files called `CentOS-Base.repo` and `epel.repo`.  These files contain the specifications for the repositories that we are going to synchronize.  `base, updates, extras, centosplus, and epel`
 
-Now, let's add repositories for `KVM, GlusterFS, and MariaDB`.
+Now, let's add repositories for `KVM, and MariaDB`.
 
     echo <<EOF > /etc/yum.repos.d/kvm-common.repo
     [kvm-common]
-    name=CentOS Epel
+    name=CentOS KVM Common
     baseurl=http://mirror.centos.org/centos/7/virt/x86_64/kvm-common/
     gpgcheck=0
     enabled=1
-    EOF
-    
-    cat <<EOF > /etc/yum.repos.d/centos-gluster6
-    [centos-gluster6]
-    baseurl=https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/RHEL/el-$releasever/$basearch/
-    enabled=1
-    gpgcheck=1
-    gpgkey=https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
-
-    [centos-gluster6-noarch]
-    baseurl=https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/RHEL/el-$releasever/noarch
-    enabled=1
-    gpgcheck=1
-    gpgkey=https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub
     EOF
 
     cat <<EOF > /etc/yum.repos.d/MariaDB.repo
@@ -59,7 +46,7 @@ Install and start Nginx:
 
 Create directories to hold all of the RPMs:
 
-    mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates, mariadb, kvm-common, centos-gluster6, centos-gluster6-noarch}
+    mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates,mariadb,kvm-common,centos-gluster6,centos-gluster6-noarch}
 
 Now, synch the repositories into the directories we just created:  (This will take a while)
 

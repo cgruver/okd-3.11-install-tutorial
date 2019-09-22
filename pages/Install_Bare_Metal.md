@@ -2,7 +2,7 @@
 
 So, at this point we should have set up our installation environment.  Make sure you have completed these steps:
 
-1. [PXE Setup](../PXE_Setup/README.md)
+1. [PXE Setup](PXE_Setup.md)
 1. [Installation Environment Setup](Setup_Env.md)
 
 The installation on a bare metal host will work like this:
@@ -37,7 +37,7 @@ The installation on a bare metal host will work like this:
             network  --hostname=${HOST_NAME}
             EOF
 1. The host should now begin and unattended install.
-1. The host will reboot and run the firstboot.sh script.
+1. The host will reboot and run the `firstboot.sh` script.
 1. The host is now ready to use!
 
 There are a couple of things that we need to put in place to get started.
@@ -56,7 +56,7 @@ Now, push that file to your install HTTP server:
 
     scp 1c697a02b6c2 root@<YOUR_INSTALL_SERVER>:/path/to/html/hostconfig
 
-Finally, make sure that you have created DNS `A` and `PTR` records.  [DNS Setup](../Control_Plane/DNS_Config.md)
+Finally, make sure that you have created DNS `A` and `PTR` records.  [DNS Setup](DNS_Config.md)
 
 We are now ready to plug in the NUC and boot it up.
 

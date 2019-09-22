@@ -46,4 +46,4 @@ Now you can begin setting up guest VMs:
 
         Linux <GUEST_HOSTNAME_HERE> 3.10.0-957.21.3.el7.x86_64 #1 SMP Tue Jun 18 16:35:19 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
 
-1. Now it's time to set up our [OpenShift Build](../OKD_Install/README.md)
+1. Now it's time to set up our [OpenShift Build](OKD_Build.md)

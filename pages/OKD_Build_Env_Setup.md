@@ -40,5 +40,4 @@
         systemctl enable docker
         systemctl start docker
 
-We are now ready to [build OpenShift](README.md).
-
+We are now ready to [build OpenShift](OKD_Build.md).

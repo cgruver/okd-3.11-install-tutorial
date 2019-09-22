@@ -79,4 +79,4 @@ Next, we need to set up the Nginx server to serve up the CentOS installation fil
     rmdir /tmp/centos-iso-mount
     rm CentOS-7-x86_64-Minimal.iso
 
-Now, continue to [Sonatype Setup](Nexus_Config.md) or return to [Control Plane Setup](README.md)
+Now, continue to [Sonatype Setup](Nexus_Config.md) or return to [Control Plane Setup](Control_Plane.md)

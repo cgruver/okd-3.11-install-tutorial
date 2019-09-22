@@ -15,6 +15,6 @@ We are going to set up UEFI booting since some of the newest NUCs have removed L
 
 If you are going to use the `GL-AR750S-Ext`, then go here: [Set Up GL-AR750S-Ext](GL-AR750S-Ext.md).  This is by far the most fun option.  It also adds the benefit of being able to also reinstall your Control Plane OS without keyboard & monitor.
 
-If you are going to set up PXE on the Control Plane server, then go here: [Control Plane Server](../Control_Plane/README.md) and follow the optional PXE Setup instructions.
+If you are going to set up PXE on the Control Plane server, then go here: [Control Plane Server](Control_Plane.md) and follow the optional PXE Setup instructions.
 
 Remeber the `Choose Your Own Adventure` books from the 90's?  No, you probably don't...

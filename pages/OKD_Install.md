@@ -43,7 +43,7 @@ The provided Ansible inventory file follows that model.  Modify it to suit your 
 
         oc login -u admin https://console.infra.${LAB_DOMAIN}:8443
 
-1. Point your browser to https://console.infra.${LAB_DOMAIN}:8443
+1. Point your browser to `https://console.infra.${LAB_DOMAIN}:8443`
 
 ## You should now be up and running with a brand new OKD 3.11 cluster that you built from scratch!!!
 

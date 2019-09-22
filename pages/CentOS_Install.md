@@ -6,7 +6,7 @@ __This tutorial assumes that you are comfortable installing a Linux OS.__
 
 You can either install via USB Key, or if you are adventurous, (which I assume you are since you are reading this), you can skip this section and instead jump to: 
 
-[Setting Up a PXE Server](PXE_Setup/README.md).  
+[Setting Up a PXE Server](PXE_Setup.md).  
 
 If you go this route, you will setup an unattended PXE install of your KVM hosts.
 
@@ -42,4 +42,4 @@ Enable passwordless SSH:
 
 Shutdown the host and disconnect the keyboard, mouse, and display.  Your host is now headless.  
 
-Power the host back on, and continue to either [Control Plane Setup](Control_Plane/README.md) or to [KVM Setup](KVM_Config.md)
+Power the host back on, and continue to either [Control Plane Setup](Control_Plane.md) or to [KVM Setup](KVM_Config.md)

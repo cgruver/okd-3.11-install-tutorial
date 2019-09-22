@@ -76,7 +76,7 @@ Copy the PXE boot files: (substitute your router IP and path to tftpboot & insta
     umount /dev/disk2
     hdiutil detach /dev/disk2
 
-We have one more step, and that is the grub.cfg file.  I have provided one for you in the `PXE_Setup` folder within this project.  It needs to be configured with the IP address of your HTTP server that is hosting your Install repository, kickstart, firstboot, and hostconfig files.  See [Host OS Provisioning](../Provision_Hosts/Setup_Env.md)
+We have one more step, and that is the grub.cfg file.  I have provided one for you in the `PXE_Setup` folder within this project.  It needs to be configured with the IP address of your HTTP server that is hosting your Install repository, kickstart, firstboot, and hostconfig files.  See [Host OS Provisioning](Setup_Env.md)
 
     cd PXE_Setup
     mkdir tmp_work
@@ -97,4 +97,4 @@ Now, we will enable the tftp server and instruct the DHCP server to send PXE boo
     /etc/init.d/dnsmasq restart
     exit
 
-Assuming that you have followed the steps here: [Host OS Provisioning](../Provision_Hosts/Setup_Env.md), then we are ready to [PXE Boot a bare metal host](../Provision_Hosts/Install_Bare_Metal.md)
+Assuming that you have followed the steps here: [Host OS Provisioning](Setup_Env.md), then we are ready to [PXE Boot a bare metal host](Install_Bare_Metal.md)

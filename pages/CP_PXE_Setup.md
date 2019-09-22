@@ -1,6 +1,6 @@
 ## Adding PXE capability to your Control Plane server
 
-At this point you need to have set up DNS and HTTP on your Control Plane server.  [Setting Up Control Plane](../Control_Plane/README.md)
+At this point you need to have set up DNS and HTTP on your Control Plane server.  [Setting Up Control Plane](Control_Plane.md)
 
 First let's install and enable a TFTP server:
 
@@ -34,7 +34,7 @@ Edit the tftp configuration file to enable tftp.  Set `disable = no`
     	flags			= IPv4
     }
 
-With TFTP enabled, we need to copy over some files for it to serve up.  Assuming that you have already [set up NGINX](../Control_Plane/Nginx_Config.md), do the following:
+With TFTP enabled, we need to copy over some files for it to serve up.  Assuming that you have already [set up NGINX](Nginx_Config.md), do the following:
 
     mkdir -p /var/lib/tftpboot/networkboot
     cd /usr/share/nginx/html/centos/
@@ -42,7 +42,7 @@ With TFTP enabled, we need to copy over some files for it to serve up.  Assuming
     cp ./images/pxeboot/initrd.img /var/lib/tftpboot/networkboot
     cp ./images/pxeboot/vmlinuz /var/lib/tftpboot/networkboot
 
-We have one more step with TFTP, and that is the grub.cfg file.  I have provided one for you in the `PXE_Setup` folder within this project.  It needs to be configured with the IP address of your HTTP server that is hosting your Install repository, kickstart, firstboot, and hostconfig files.  See [Host OS Provisioning](../Provision_Hosts/Setup_Env.md)
+We have one more step with TFTP, and that is the grub.cfg file.  I have provided one for you in the `PXE_Setup` folder within this project.  It needs to be configured with the IP address of your HTTP server that is hosting your Install repository, kickstart, firstboot, and hostconfig files.  See [Host OS Provisioning](Setup_Env.md)
 
     cd PXE_Setup
     mkdir tmp_work
@@ -133,4 +133,4 @@ Finally, enable DHCP:
 
 Regardless of the route that you chose, you should now have an environment ready for PXE Boot!
 
-Assuming that you have followed the steps here: [Host OS Provisioning](../Provision_Hosts/Setup_Env.md), then we are ready to [PXE Boot a bare metal host](../Provision_Hosts/Install_Bare_Metal.md)
+Assuming that you have followed the steps here: [Host OS Provisioning](Setup_Env.md), then we are ready to [PXE Boot a bare metal host](Install_Bare_Metal.md)

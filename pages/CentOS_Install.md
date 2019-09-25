@@ -1,6 +1,8 @@
 ## Minimal CentOS Install
 
-I use the [CentOS Minimal ISO](http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso)
+I use the CentOS Minimal ISO:
+
+    wget https://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
 
 __This tutorial assumes that you are comfortable installing a Linux OS.__
 

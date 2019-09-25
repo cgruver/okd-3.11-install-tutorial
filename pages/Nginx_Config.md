@@ -48,12 +48,12 @@ Create directories to hold all of the RPMs:
 
     mkdir -p /usr/share/nginx/html/repos/{base,centosplus,extras,updates,mariadb,kvm-common,centos-gluster6}
 
-Now, synch the repositories into the directories we just created:  (This will take a while)
+Now, synch the repositories into the directories we just created:  (This will take a while)  __Note: Ideally there should also be a `-g` flag in the command below that instructs `reposync` to remove packages that fail GPG check.  However, at the time of writing, the correct GPG keys for Gluster6 are not included.
 
     LOCAL_REPOS="base centosplus extras updates epel mariadb kvm-common centos-gluster6"
     for REPO in ${LOCAL_REPOS}
     do
-        reposync -g -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/
+        reposync -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/
         createrepo /usr/share/nginx/html/repos/${REPO}/  
     done
 
@@ -64,7 +64,7 @@ To refresh your RPM repositories, run this script again, or better yet, create a
     LOCAL_REPOS="base centosplus extras updates epel mariadb kvm-common centos-gluster6"
     for REPO in ${LOCAL_REPOS}
     do
-        reposync -g -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/
+        reposync -l -d -m --repoid=${REPO} --newest-only --download-metadata --download_path=/usr/share/nginx/html/repos/
         createrepo /usr/share/nginx/html/repos/${REPO}/  
     done
 

@@ -16,4 +16,6 @@ By the end of this tutorial, you will have set up the following components:
 * Automated provisioning of Guest VMs for your OKD cluster
 * Finally, at least one OKD cluster - depending on your available compute resources
 
-Clone this repository: `git clone https://github.com/cgruver/okd-3.11-tutorial.git`  __Then, view the tutorial: [here](https://cgruver.github.io/okd-3.11-tutorial/)__
+First: Clone this repository: `git clone https://github.com/cgruver/okd-3.11-tutorial.git`  
+
+Next: __Follow the [Tutorial](https://cgruver.github.io/okd-3.11-tutorial/)__

@@ -23,7 +23,7 @@ logvol /  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=root --vgna
 @core
 chrony
 kexec-tools
-yum-utils
+
 
 %end
 
@@ -40,6 +40,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 eula --agreed
 
 %post
+yum -y install yum-utils
 yum-config-manager --disable base
 yum-config-manager --disable updates
 yum-config-manager --disable extras

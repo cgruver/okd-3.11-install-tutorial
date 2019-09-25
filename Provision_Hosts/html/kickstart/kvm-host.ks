@@ -15,7 +15,6 @@ timezone America/New_York --isUtc
 @core
 chrony
 kexec-tools
-yum-utils
 
 %end
 
@@ -87,6 +86,7 @@ fi
 %end
 
 %post
+yum -y install yum-utils
 yum-config-manager --disable base
 yum-config-manager --disable updates
 yum-config-manager --disable extras

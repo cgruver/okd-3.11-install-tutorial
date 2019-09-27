@@ -1,5 +1,9 @@
 ## Installing KVM packages
 
+__Note:__ If you follow the instructions for setting up [PXE Booting](PXE_Setup.md) KVM and bridged networking will be setup for you when you [build a bare metal host](Install_Bare_Metal.md).
+
+Otherwise...
+
 1. Install some common tools that are useful on all of our hosts:
 
         yum -y install wget git net-tools bind-utils bash-completion nfs-utils rsync

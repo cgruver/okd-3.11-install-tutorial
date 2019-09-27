@@ -17,7 +17,7 @@ The installation on a bare metal host will work like this:
    1. The host will retrieve the kickstart file
 1. The kickstart file has a pre-execution phase that does a couple of things:
    1. It identifies whether or not the system has 1 or 2 SSDs installed and creates the appropriate partition information.
-   1. It identifies the active NIC, extracts its MAC address, and then retrieves a file named after the MAC address from the install server.  This file contains environment variables that will be injected into kickstart to set up the host's network configuration.
+   1. It identifies the active NIC, extracts its MAC address, and then retrieves a file named after the MAC address from the install server.  This file contains environment variables that will be injected into kickstart to set up the host's network configuration.  The network configuration will create a bridge device named `br0` and connect the physical network device to the bridge.
 
         The logic looks like:
 
@@ -33,7 +33,7 @@ The installation on a bare metal host will work like this:
             curl -o /tmp/net-vars http://10.11.11.1/hostconfig/${NET_MAC}
             source /tmp/net-vars
             cat << EOF > /tmp/net-info
-            network  --bootproto=static --device=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --ipv6=auto --activate
+            network  --bootproto=static --device=br0 --bridgeslaves=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --noipv6 --activate
             network  --hostname=${HOST_NAME}
             EOF
 1. The host should now begin and unattended install.

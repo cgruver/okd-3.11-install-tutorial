@@ -43,7 +43,8 @@ NET_MAC=${j//:}
 curl -o /tmp/net-vars %%INSTALL_URL%%/hostconfig/${NET_MAC}
 source /tmp/net-vars
 cat << EOF > /tmp/net-info
-network  --bootproto=static --device=br0 --bridgeslaves=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --noipv6 --activate
+network  --device=${NET_IF} --noipv4 --noipv6 --no-activate --onboot=no
+network  --bootproto=static --device=br0 --bridgeslaves=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --noipv6 --activate --bridgeopts="stp=false" --onboot=yes
 network  --hostname=${HOST_NAME}
 EOF
 

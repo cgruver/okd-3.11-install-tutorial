@@ -22,12 +22,6 @@ baseurl=%%REPO_URL%%/repos/updates/
 gpgcheck=0
 enabled=1
 
-[local-openshift]
-name=CentOS OpenShift Origin
-baseurl=%%REPO_URL%%/repos/ocp/
-gpgcheck=0
-enabled=1
-
 [local-epel]
 name=CentOS Epel
 baseurl=%%REPO_URL%%/repos/epel/

@@ -12,13 +12,14 @@ Now we're going to set up your local environment for the automation I provided.
     
 1. Set some environment variables for your lab.  You will need to know the domain that you created during DNS setup, the IP address of your Name Server, your network mask, your network gateway, the hostname of your Nginx server, and if you set up PXE install, you will need the IP address of the HTTP server hosting your install repo. 
 
-       LAB_DOMAIN=your.domain.com  # The Domain you created during DNS setup
-       LAB_NAMESERVER=10.10.11.10  # The IP address of your DNS Server
-       LAB_NETMASK=255.255.255.0   # The network mask of your lab network
-       LAB_GATEWAY=10.10.11.1      # Your router IP address
-       INSTALL_HOST_IP=10.10.11.1  # The IP of the host serving the install repo (your PXE server or your control plane server)
+       LAB_DOMAIN=your.domain.com                # The Domain you created during DNS setup
+       LAB_NAMESERVER=10.10.11.10                # The IP address of your DNS Server
+       LAB_NETMASK=255.255.255.0                 # The network mask of your lab network
+       LAB_GATEWAY=10.10.11.1                    # Your router IP address
+       INSTALL_HOST_IP=10.10.11.1                # The IP of the host serving the install repo (your PXE server or your control plane server)
        INSTALL_ROOT=/usr/share/nginx/html/install
-       REPO_HOST=ocp-controller01  # Your Control Plane server
+       REPO_HOST=ocp-controller01                # Your Control Plane server
+       REPO_PATH=/usr/share/nginx/html/repos     # The path to the repos served by Nginx on your control plane
 
 1. Create a script to set your environment:
 
@@ -35,6 +36,7 @@ Now we're going to set up your local environment for the automation I provided.
        export INSTALL_ROOT=${INSTALL_ROOT}
        export REPO_URL=http://${REPO_HOST}.${LAB_DOMAIN}
        export INSTALL_URL=http://${INSTALL_HOST_IP}/install
+       export REPO_PATH=${REPO_PATH}
        EOF
 
     This script you just created will set your environment and PATH for guest VM provisioning.  Run this before you start provisioning VMs

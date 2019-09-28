@@ -4,6 +4,10 @@ First, we need to set up some tooling for our [OKD Build Environment](OKD_Build_
 
 Now let's build OpenSHift from source!
 
+If you haven't set your lab environment since building the control plane, then source the lab environment:
+
+    . ~/bin/lab_bin/setLabEnv.sh
+
 1. Clone the Git repo:
 
        cd $GOPATH/src/github.com/openshift
@@ -22,10 +26,24 @@ Now let's build OpenSHift from source!
 
 1. Copy the OpenShift RPMs to your Nginx server:
 
-       ssh root@<YOUR_CONTROL_PLANE_SERVER.your.domain.com> "rm -rf /usr/share/nginx/html/repos/ocp"
-       ssh root@<YOUR_CONTROL_PLANE_SERVER.your.domain.com> "mkdir -p /usr/share/nginx/html/repos/ocp"
-       scp -r $GOPATH/src/github.com/openshift/origin/_output/local/releases/rpms/* root@<YOUR_CONTROL_PLANE_SERVER.your.domain.com>:/usr/share/nginx/html/repos/ocp
-       ssh root@<YOUR_CONTROL_PLANE_SERVER.your.domain.com> "createrepo /usr/share/nginx/html/repos/ocp"
+       ssh root@${REPO_HOST} "rm -rf /usr/share/nginx/html/repos/ocp"
+       ssh root@${REPO_HOST} "mkdir -p /usr/share/nginx/html/repos/ocp"
+       scp -r $GOPATH/src/github.com/openshift/origin/_output/local/releases/rpms/* root@${REPO_HOST}:/usr/share/nginx/html/repos/ocp
+       ssh root@${REPO_HOST} "createrepo /usr/share/nginx/html/repos/ocp"
+
+1. Create a yum repo file for the OpenShift RPMs
+
+       cat <<EOF > /tmp/openshift.repo 
+       [local-openshift]
+       name=CentOS OpenShift Origin
+       baseurl=${REPO_URL}/repos/ocp/
+       gpgcheck=0
+       enabled=1
+       EOF
+
+       scp /tmp/openshift.repo root@${INSTALL_HOST_IP}:${INSTALL_ROOT}/postinstall
+       rm /tmp/openshift.repo
+
 
 1. Build Ansible Service Broker:
 
@@ -35,7 +53,7 @@ Now let's build OpenSHift from source!
        git checkout release-1.3
        export ORG=openshift
        export TAG=v3.11
-       export REGISTRY="nexus.<YOUR.DOMAIN.COM>:5001"
+       export REGISTRY="nexus.${LAB_DOMAIN}:5001"
        make build
        make build-image
 
@@ -43,7 +61,7 @@ Now let's build OpenSHift from source!
 
        cd $GOPATH/src/github.com/openshift
        export OS_TAG=v3.11.0
-       export PREFIX="nexus.<YOUR.DOMAIN.COM>:5001/openshift/origin-"
+       export PREFIX="nexus.${LAB_DOMAIN}:5001/openshift/origin-"
        git clone --recurse-submodules https://github.com/openshift/origin-metrics.git
        cd origin-metrics/
        git checkout release-3.11
@@ -62,19 +80,19 @@ Now let's build OpenSHift from source!
        git submodule update
 
        export OS_TAG=v3.11.0
-       export PREFIX="nexus.<YOUR.DOMAIN.COM>:5001/openshift/origin-"
+       export PREFIX="nexus.${LAB_DOMAIN}:5001/openshift/origin-"
        make
 
 3. Push Images to Nexus Registry
 
-       docker login -u admin nexus.<YOUR.DOMAIN.COM>:5001
+       docker login -u admin nexus.${LAB_DOMAIN}:5001
 
-       docker push nexus.<YOUR.DOMAIN.COM>:5001/openshift/origin-ansible-service-broker:v3.11
+       docker push nexus.${LAB_DOMAIN}:5001/openshift/origin-ansible-service-broker:v3.11
 
        for i in $(docker images | grep -v docker | grep openshift | grep latest | cut -d" " -f 1) 
        do 
-        docker tag ${i} nexus.<YOUR.DOMAIN.COM>:5001/${i}:v3.11
-        docker tag ${i} nexus.<YOUR.DOMAIN.COM>:5001/${i}:v3.11.0
+        docker tag ${i} nexus.${LAB_DOMAIN}:5001/${i}:v3.11
+        docker tag ${i} nexus.${LAB_DOMAIN}:5001/${i}:v3.11.0
        done
 
        for i in $(docker images | grep nexus | cut -d" " -f 1) 

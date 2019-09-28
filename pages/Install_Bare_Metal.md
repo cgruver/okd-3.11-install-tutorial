@@ -21,21 +21,21 @@ The installation on a bare metal host will work like this:
 
         The logic looks like:
 
-            for i in $(ls /sys/class/net)
-            do
-            if [ $(cat /sys/class/net/${i}/operstate) == "up" ]
-            then
-                NET_IF=${i}
-            fi
-            done
-            j=$(cat /sys/class/net/${NET_IF}/address)
-            NET_MAC=${j//:}  # Strip out the : characters
-            curl -o /tmp/net-vars http://10.11.11.1/hostconfig/${NET_MAC}
-            source /tmp/net-vars
-            cat << EOF > /tmp/net-info
-            network  --bootproto=static --device=br0 --bridgeslaves=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --noipv6 --activate
-            network  --hostname=${HOST_NAME}
-            EOF
+          for i in $(ls /sys/class/net)
+          do
+          if [ $(cat /sys/class/net/${i}/operstate) == "up" ]
+          then
+              NET_IF=${i}
+          fi
+          done
+          j=$(cat /sys/class/net/${NET_IF}/address)
+          NET_MAC=${j//:}  # Strip out the : characters
+          curl -o /tmp/net-vars http://10.11.11.1/hostconfig/${NET_MAC}
+          source /tmp/net-vars
+          cat << EOF > /tmp/net-info
+          network  --bootproto=static --device=br0 --bridgeslaves=${NET_IF} --gateway=${GATEWAY} --ip=${IP} --nameserver=${NAME_SERVER} --netmask=${NETMASK} --noipv6 --activate
+          network  --hostname=${HOST_NAME}
+          EOF
 1. The host should now begin and unattended install.
 1. The host will reboot and run the `firstboot.sh` script.
 1. The host is now ready to use!

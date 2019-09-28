@@ -60,21 +60,21 @@ Before we start Nexus, let's go ahead a set up TLS so that our connections are s
 
 1. Generate a Java Key Store replacing the DNS entries with the entires relevant to your environment:  (Remember, in the DNS configuration we named our control plane server `ocp-controller01`.  If you used a different host name, you need to change it below)
 
-        keytool -genkeypair -keystore nexus.jks -storepass password -alias your.domain.com -keyalg RSA -keysize 2048 -validity 5000 -keypass password -dname 'CN=*.your.domain.com OU=Sonatype, O=Sonatype, L=Unspecified, ST=Unspecified, C=US' -ext 'SAN=DNS:nexus.your.domain.com,DNS:clm.your.domain.com,DNS:repo.your.domain.com,DNS:ocp-controller01,DNS:ocp-controller01.your.domain.com'
+       keytool -genkeypair -keystore nexus.jks -storepass password -alias your.domain.com -keyalg RSA -keysize 2048 -validity 5000 -keypass password -dname 'CN=*.your.domain.com OU=Sonatype, O=Sonatype, L=Unspecified, ST=Unspecified, C=US' -ext 'SAN=DNS:nexus.your.domain.com,DNS:clm.your.domain.com,DNS:repo.your.domain.com,DNS:ocp-controller01,DNS:ocp-controller01.your.domain.com'
 
 1. Import the new keystore into the Nexus configuration:
 
 
-        keytool -importkeystore -srckeystore nexus.jks -destkeystore /usr/local/nexus/nexus-3/etc/ssl/keystore.jks -deststoretype pkcs12
+       keytool -importkeystore -srckeystore nexus.jks -destkeystore /usr/local/nexus/nexus-3/etc/ssl/keystore.jks -deststoretype pkcs12
 
 
 1. Modify the Nexus configuration for HTTPS:
 
-        mkdir /usr/local/nexus/sonatype-work/nexus3/etc
-        cat <<EOF >> /usr/local/nexus/sonatype-work/nexus3/etc/nexus.properties
-        nexus-args=\${jetty.etc}/jetty.xml,\${jetty.etc}/jetty-https.xml,\${jetty.etc}/jetty-requestlog.xml
-        application-port-ssl=8443
-        EOF
+       mkdir /usr/local/nexus/sonatype-work/nexus3/etc
+       cat <<EOF >> /usr/local/nexus/sonatype-work/nexus3/etc/nexus.properties
+       nexus-args=\${jetty.etc}/jetty.xml,\${jetty.etc}/jetty-https.xml,\${jetty.etc}/jetty-requestlog.xml
+       application-port-ssl=8443
+       EOF
 
 Now we should be able to start Nexus and connect to it with a browser:
 

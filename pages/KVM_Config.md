@@ -1,6 +1,6 @@
 ## Installing KVM packages
 
-__Note:__ If you follow the instructions for setting up [PXE Booting](PXE_Setup.md) KVM and bridged networking will be setup for you when you [build a bare metal host](Install_Bare_Metal.md).
+__Note:__ If you follow the instructions for setting up [PXE Booting](PXE_Setup.md), KVM and bridged networking will be setup for you when you [build a bare metal host](Install_Bare_Metal.md).
 
 Otherwise...
 
@@ -26,32 +26,32 @@ We are going to manually edit the network config files to set up bridged network
 
 1. We are going to name our bridge device `br1`.
 
-        cd /etc/sysconfig/network-scripts
-        vi ifcfg-br1
+       cd /etc/sysconfig/network-scripts
+       vi ifcfg-br1
 
     Here is an example file:
 
-        TYPE=Bridge
-        PROXY_METHOD=none
-        BROWSER_ONLY=no
-        BOOTPROTO=static
-        DEFROUTE=yes
-        IPV4_FAILURE_FATAL=yes
-        IPV6INIT=no
-        IPV6_AUTOCONF=no
-        IPV6_DEFROUTE=no
-        IPV6_FAILURE_FATAL=no
-        IPV6_ADDR_GEN_MODE=stable-privacy
-        NAME=br1
-        DEVICE=br1
-        ONBOOT=yes
-        IPADDR=10.20.30.10 
-        PREFIX=24
-        GATEWAY=10.20.30.1
-        DNS1=10.20.30.5
-        DOMAIN=your.domain.org
-        ZONE=public
-        NM_CONTROLLED=no
+       TYPE=Bridge
+       PROXY_METHOD=none
+       BROWSER_ONLY=no
+       BOOTPROTO=static
+       DEFROUTE=yes
+       IPV4_FAILURE_FATAL=yes
+       IPV6INIT=no
+       IPV6_AUTOCONF=no
+       IPV6_DEFROUTE=no
+       IPV6_FAILURE_FATAL=no
+       IPV6_ADDR_GEN_MODE=stable-privacy
+       NAME=br1
+       DEVICE=br1
+       ONBOOT=yes
+       IPADDR=10.20.30.10 
+       PREFIX=24
+       GATEWAY=10.20.30.1
+       DNS1=10.20.30.5
+       DOMAIN=your.domain.org
+       ZONE=public
+       NM_CONTROLLED=no
 
     Replace `IPADDR, PREFIX, GATEWAY, DNS1, and DOMAIN` with the information from the NIC that you configured during the installation.
 
@@ -63,21 +63,21 @@ We are going to manually edit the network config files to set up bridged network
 
     `vi ifcfg-eno1`
 
-        TYPE=Ethernet
-        PROXY_METHOD=none
-        BROWSER_ONLY=no
-        BOOTPROTO=none
-        IPV4_FAILURE_FATAL=no
-        IPV6INIT=no
-        IPV6_AUTOCONF=no
-        IPV6_DEFROUTE=no
-        IPV6_FAILURE_FATAL=no
-        IPV6_ADDR_GEN_MODE=stable-privacy
-        NAME=eno1
-        DEVICE=eno1
-        ONBOOT=yes
-        BRIDGE=br1
-        NM_CONTROLLED=no
+       TYPE=Ethernet
+       PROXY_METHOD=none
+       BROWSER_ONLY=no
+       BOOTPROTO=none
+       IPV4_FAILURE_FATAL=no
+       IPV6INIT=no
+       IPV6_AUTOCONF=no
+       IPV6_DEFROUTE=no
+       IPV6_FAILURE_FATAL=no
+       IPV6_ADDR_GEN_MODE=stable-privacy
+       NAME=eno1
+       DEVICE=eno1
+       ONBOOT=yes
+       BRIDGE=br1
+       NM_CONTROLLED=no
    
     Notice that all of the IP configuration data has been moved to the ifcfg-br1 file.
 

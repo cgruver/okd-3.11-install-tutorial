@@ -9,13 +9,15 @@ The provided Ansible inventory file follows that model.  Modify it to suit your 
 1. Create a working area for your deployment.
 
        mkdir ~/OKD_Install
-       cd ~/OKD_Install
 
 1. Copy the inventory.3.11.ini file from this repo into `~/OKD_Install`
 
+       cp OKD_Install/inventory.3.11.ini ~/OKD_Install
+       cd ~/OKD_Install
+
 1. I created it as a template for you to apply your `$LAB_DOMAIN` to.
 
-       sed -i "" "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" ~/OKD_Install/inventory.3.11.ini
+       sed -i "" "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" inventory.3.11.ini
     
 1. Clone the OpenShift Ansible project:
 

@@ -20,7 +20,8 @@ fi
 
 chmod 600 /root/.ssh/authorized_keys
 
-yum -y install iscsi-initiator-utils libvirt libvirt-devel libvirt-daemon-kvm qemu-kvm jq golang-bin gcc-c++ golang docker zip krb5-devel bsdtar bc libassuan-devel wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct nfs-utils 
+# yum -y install iscsi-initiator-utils libvirt libvirt-devel libvirt-daemon-kvm qemu-kvm jq golang-bin gcc-c++ golang docker zip krb5-devel bsdtar bc libassuan-devel wget git net-tools bind-utils bridge-utils bash-completion kexec-tools sos psacct nfs-utils 
+yum -y install wget git net-tools bind-utils bash-completion nfs-utils rsync qemu-kvm libvirt libvirt-python libguestfs-tools virt-install iscsi-initiator-utils
 yum -y update
 
 echo "InitiatorName=iqn.$(hostname)" > /etc/iscsi/initiatorname.iscsi

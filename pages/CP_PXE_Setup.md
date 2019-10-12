@@ -112,17 +112,17 @@ Now edit the DHCP configuration:
     allow unknown-clients;
 
     # internal subnet for my DHCP Server
-    subnet 10.11.11.0 netmask 255.255.255.0 {
-    range 10.11.11.11 10.11.11.29;
-    option domain-name-servers 10.11.11.10;
+    subnet 10.10.11.0 netmask 255.255.255.0 {
+    range 10.10.11.11 10.10.11.29;
+    option domain-name-servers 10.10.11.10;
     option domain-name "your.domain.org";
-    option routers 10.11.11.1;
-    option broadcast-address 10.11.11.255;
+    option routers 10.10.11.1;
+    option broadcast-address 10.10.11.255;
     default-lease-time 600;
     max-lease-time 7200;
 
     # IP of TFTP Server
-    next-server 10.11.11.10;
+    next-server 10.10.11.10;
     filename "BOOTX64.EFI";
     }
 

@@ -1,4 +1,4 @@
-@       IN      SOA     okd-controller01.your.domain.com. admin.your.domain.com. (
+@       IN      SOA     lab-controller01.%%LAB_DOMAIN%%. admin.%%LAB_DOMAIN%%. (
                               3         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
@@ -6,32 +6,27 @@
                          604800 )       ; Negative Cache TTL
 
 ; name servers - NS records
-      IN      NS      okd-controller01.your.domain.com.
+      IN      NS      lab-controller01.%%LAB_DOMAIN%%.
 
 ; PTR Records
-10    IN      PTR     okd-controller01.your.domain.com.
-200   IN      PTR     kvmhost01.your.domain.com. 
-201   IN      PTR     kvmhost02.your.domain.com. 
-202   IN      PTR     kvmhost03.your.domain.com. 
-203   IN      PTR     kvmhost04.your.domain.com. 
-204   IN      PTR     kvmhost05.your.domain.com. 
-205   IN      PTR     kvmhost06.your.domain.com. 
-206   IN      PTR     kvmhost07.your.domain.com. 
-207   IN      PTR     kvmhost08.your.domain.com. 
-50    IN      PTR     okd-lb01.your.domain.com.  
-60    IN      PTR     okd-master01.your.domain.com. 
-61    IN      PTR     okd-master02.your.domain.com. 
-62    IN      PTR     okd-master03.your.domain.com. 
-63    IN      PTR     okd-infranode01.your.domain.com. 
-64    IN      PTR     okd-infranode02.your.domain.com. 
-65    IN      PTR     okd-infranode03.your.domain.com. 
-70    IN      PTR     okd-appnode01.your.domain.com. 
-71    IN      PTR     okd-appnode02.your.domain.com. 
-72    IN      PTR     okd-appnode03.your.domain.com. 
-80    IN      PTR     okd-sannode01.your.domain.com. 
-81    IN      PTR     okd-sannode02.your.domain.com.  
-82    IN      PTR     okd-sannode03.your.domain.com. 
-83    IN      PTR     okd-sannode04.your.domain.com.
-90    IN      PTR     okd-dbnode01.your.domain.com. 
-91    IN      PTR     okd-dbnode02.your.domain.com. 
-92    IN      PTR     okd-dbnode03.your.domain.com. 
+10    IN      PTR     lab-controller01.%%LAB_DOMAIN%%.
+200   IN      PTR     kvm-host01.%%LAB_DOMAIN%%. 
+201   IN      PTR     kvm-host02.%%LAB_DOMAIN%%. 
+202   IN      PTR     kvm-host03.%%LAB_DOMAIN%%. 
+50    IN      PTR     prd-lb01.%%LAB_DOMAIN%%.  
+60    IN      PTR     prd-master01.%%LAB_DOMAIN%%. 
+61    IN      PTR     prd-master02.%%LAB_DOMAIN%%. 
+62    IN      PTR     prd-master03.%%LAB_DOMAIN%%. 
+63    IN      PTR     prd-infranode01.%%LAB_DOMAIN%%. 
+64    IN      PTR     prd-infranode02.%%LAB_DOMAIN%%. 
+65    IN      PTR     prd-infranode03.%%LAB_DOMAIN%%. 
+70    IN      PTR     prd-appnode01.%%LAB_DOMAIN%%. 
+71    IN      PTR     prd-appnode02.%%LAB_DOMAIN%%. 
+72    IN      PTR     prd-appnode03.%%LAB_DOMAIN%%. 
+80    IN      PTR     prd-sannode01.%%LAB_DOMAIN%%. 
+81    IN      PTR     prd-sannode02.%%LAB_DOMAIN%%.  
+82    IN      PTR     prd-sannode03.%%LAB_DOMAIN%%. 
+83    IN      PTR     prd-sannode04.%%LAB_DOMAIN%%.
+90    IN      PTR     prd-dbnode01.%%LAB_DOMAIN%%. 
+91    IN      PTR     prd-dbnode02.%%LAB_DOMAIN%%. 
+92    IN      PTR     prd-dbnode03.%%LAB_DOMAIN%%. 

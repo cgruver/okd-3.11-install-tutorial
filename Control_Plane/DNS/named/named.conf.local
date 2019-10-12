@@ -1,6 +1,6 @@
 zone "your.domain.com" {
     type master;
-    file "/etc/named/zones/db.your.domain.com"; # zone file for your domain.
+    file "/etc/named/zones/db.%%LAB_DOMAIN%%"; # zone file for your domain.
 };
 
 zone "11.10.10.in-addr.arpa" {

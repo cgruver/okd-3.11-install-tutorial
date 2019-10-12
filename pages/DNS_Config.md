@@ -34,17 +34,29 @@ In the next files, those under `/etc/named/zones` you will need to rename the fi
 
 These two files define the A records and Pointer, (reverse lookup), records for your hosts.
 
-Let's start with the A records, (forward lookup zone).  Rename the file, `/etc/named/zones/db.your.domain.com`, to reflect your local domain.  Then edit it to reflect the appropriate A records for your setup.
+__If you set up your lab router on the 10.10.11/24 network.  Then you can use the example DNS files as they are for this exercise.__
+
+Do the following, from the root of this project:
+
+    cp Control_Plane/DNS/named.conf /etc
+    cp Control_Plane/DNS/named /etc
+    export LAB_DOMAIN=your.domain.com # Put your domain name here
+    mv /etc/named/zones/db.your.domain.com /etc/named/zones/db.${LAB_DOMAIN} # Don't substitute your.domain.com in this line
+    sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" /etc/named/named.conf.local
+    sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" /etc/named/zones/db.${LAB_DOMAIN}
+    sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" /etc/named/zones/db.10.10.11
+
+Now let's talk about this configuration, starting with the A records, (forward lookup zone).  If you did not use the 10.10.11/24 network as illustrated, then rename the file, `/etc/named/zones/db.your.domain.com`, to reflect your local domain.  Now edit it to reflect the appropriate A records for your setup.
 
 In the example file, there are some entries to take note of:
 
-1. The KVM hosts are named `kvmhost01`, `kvmhost02`, etc...  Modify this to reflect the number of KVM hosts that your lab setup with have.
+1. The KVM hosts are named `kvm-host01`, `kvm-host02`, etc...  Modify this to reflect the number of KVM hosts that your lab setup with have.  The example allows for three hosts.
   
-1. The control plane server is `ocp-controller01`.  If your control plane is also one of your KVM hosts, then you do not need a separate A record for this.
+1. The control plane server is `lab-controller01`.  If your control plane is also one of your KVM hosts, then you do not need a separate A record for this.
   
 1. The Sonatype Nexus server gets it's own alias A record, `nexus.your.domain.com`.  This is not strictly necessary, but I find it useful.  For your lab, make sure that this A record reflects the IP address of the server where you have installed Nexus.
   
-1. These example files contain references for two OpenShift clusters, a Production Cluster, and a Development cluster.  The production cluster has three each of master, infrastructure, and application (compute) nodes. The development cluster has one each of master, infrastructure, and application nodes.
+1. These example files contain references for a full OpenShift cluster with an haproxy load balancer.  The OKD cluster has three each of master, infrastructure, and application (compute) nodes.  In this tutorial, you will build a minimal cluster with one master node, one infrastructure node, and two application nodes.
 
     There are also records for four "SAN" nodes which I use to host a GlusterFS implementation, as well as records for three "DB" hosts which I use to host a MariaDB Galera cluster.  More on these later.
 

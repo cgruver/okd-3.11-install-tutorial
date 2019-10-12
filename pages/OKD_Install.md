@@ -15,9 +15,10 @@ The provided Ansible inventory file follows that model.  Modify it to suit your 
        cp OKD_Install/inventory.3.11.ini ~/OKD_Install
        cd ~/OKD_Install
 
-1. I created it as a template for you to apply your `$LAB_DOMAIN` to.
+1. I created it as a template for you to apply your `$LAB_DOMAIN` to.  Remember, if you are using a MacBook for this part you need to add an empty arg to sed; `sed -i "" "s|...`
 
-       sed -i "" "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" inventory.3.11.ini
+       sed -i "s|%%LAB_DOMAIN%%|${LAB_DOMAIN}|g" inventory.3.11.ini
+
     
 1. Clone the OpenShift Ansible project:
 

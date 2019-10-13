@@ -66,14 +66,14 @@ case $TYPE in
 	KS="${KS}/okddev.ks"
 	DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
 	ARGS="--cpu host-passthrough,match=exact"
-   ;;
-   DEV)
+	;;
+	DEV)
 	KS="${KS}/devnode.ks"
-   DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
+	DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
 	;;
 	ROUTER)
 	KS="${KS}/rtenode.ks"
-   DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
+	DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
 	;;
 	MASTER)
 	KS="${KS}/infranode.ks"

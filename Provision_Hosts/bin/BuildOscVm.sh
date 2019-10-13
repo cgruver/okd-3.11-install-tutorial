@@ -59,9 +59,15 @@ D2_SIZE=$(echo $DISK_LIST | cut -d"," -f2)
 DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata --disk size=${D2_SIZE},path=/VirtualMachines/${HOSTNAME}/dockervol,bus=sata"
 
 KS="${INSTALL_URL}/kickstart"
+ARGS=""
 
 case $TYPE in
-	DEV)
+	OKD)
+	KS="${KS}/okddev.ks"
+	DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
+	ARGS="--cpu host-passthrough,match=exact"
+   ;;
+   DEV)
 	KS="${KS}/devnode.ks"
    DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
 	;;
@@ -90,4 +96,4 @@ esac
 
 IP=$(dig ${HOSTNAME}.${LAB_DOMAIN} +short)
 ssh root@${NODE}.${LAB_DOMAIN} "mkdir -p /VirtualMachines/${HOSTNAME}"
-ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br0 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1"
+ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br0 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1 ${ARGS}"

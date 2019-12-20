@@ -76,13 +76,13 @@ case $TYPE in
 	DISK_LIST="--disk size=${D1_SIZE},path=/VirtualMachines/${HOSTNAME}/rootvol,boot_order=1,bus=sata"
 	;;
 	MASTER)
-	KS="${KS}/infranode.ks"
+	KS="${KS}/okd-kvm-node.ks"
 	;;
 	INFRA)
-	KS="${KS}/infranode.ks"
+	KS="${KS}/okd-kvm-node.ks"
 	;;
 	APP)
-	KS="${KS}/appnode.ks"
+	KS="${KS}/okd-kvm-node.ks"
 	;;
 	SAN)
 	KS="${KS}/sannode.ks"

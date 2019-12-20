@@ -24,6 +24,7 @@ logvol /  --fstype="xfs" --grow --maxsize=2000000 --size=1024 --name=root --vgna
 chrony
 kexec-tools
 
+
 %end
 
 %addon com_redhat_kdump --enable --reserve-mb='auto'
@@ -46,7 +47,7 @@ yum-config-manager --disable extras
 yum-config-manager --add-repo %%INSTALL_URL%%/postinstall/local-repos.repo
 yum-config-manager --add-repo %%INSTALL_URL%%/postinstall/openshift.repo
 
-curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/infranode.fb
+curl -o /root/firstboot.sh %%INSTALL_URL%%/firstboot/okd-kvm-node.fb
 chmod 750 /root/firstboot.sh
 echo "@reboot root /bin/bash /root/firstboot.sh" >> /etc/crontab
 mv /etc/sysconfig/selinux /root/selinux

@@ -37,7 +37,7 @@ Edit the tftp configuration file to enable tftp.  Set `disable = no`
 With TFTP enabled, we need to copy over some files for it to serve up.  Assuming that you have already [set up NGINX](Nginx_Config.md), do the following:
 
     mkdir -p /var/lib/tftpboot/networkboot
-    cd /usr/share/nginx/html/centos/
+    cd /usr/share/nginx/html/install/centos/
     cp ./EFI/BOOT/BOOTX64.EFI /var/lib/tftpboot
     cp ./images/pxeboot/initrd.img /var/lib/tftpboot/networkboot
     cp ./images/pxeboot/vmlinuz /var/lib/tftpboot/networkboot

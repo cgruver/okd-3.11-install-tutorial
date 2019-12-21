@@ -90,6 +90,10 @@ fi
 %end
 
 %post
+j=$(cat /sys/class/net/eno1/address)
+NET_MAC=${j//:}
+curl -o /tmp/install-vars %%INSTALL_URL%%/hostconfig/${NET_MAC}
+source /tmp/install-vars
 yum -y install yum-utils
 yum-config-manager --disable base
 yum-config-manager --disable updates

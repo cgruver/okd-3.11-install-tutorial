@@ -18,6 +18,6 @@ do
 	HOST_NODE=$(echo ${VARS} | cut -d',' -f2)
 	HOSTNAME=$(echo ${VARS} | cut -d',' -f3)
 	ssh root@${HOST_NODE}.${LAB_DOMAIN} "virsh destroy ${HOSTNAME}"
-	ssh root@${HOST_NODE}.${LAB_DOMAIN} "virsh undefine ${HOSTNAME} && virsh pool-destroy ${HOSTNAME} && rm -rf /VirtualMachines/${HOSTNAME}"
+	ssh root@${HOST_NODE}.${LAB_DOMAIN} "virsh undefine ${HOSTNAME} && virsh pool-destroy ${HOSTNAME} && virsh pool-undefine ${HOSTNAME} && rm -rf /VirtualMachines/${HOSTNAME}"
 done
 

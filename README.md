@@ -19,3 +19,5 @@ By the end of this tutorial, you will have set up the following components:
 First: Clone this repository: `git clone https://github.com/cgruver/okd-3.11-tutorial.git`  
 
 Next: __Follow the [Tutorial](https://cgruver.github.io/okd-3.11-tutorial/)__
+
+### Note: Use the master branch.  I have added a dual_nic branch recently that I may write about.  I added a second NIC to each of my physical hosts in order to separate my app network from storage. 

@@ -110,7 +110,7 @@ ssh root@${NODE}.${LAB_DOMAIN} "mkdir -p /VirtualMachines/${HOSTNAME}"
 
 if [ ${TYPE} == "PXE" ]
 then
-    ssh root@${NODE}.${LAB_DOMAIN} "virt-install --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
+    ssh root@${NODE}.${LAB_DOMAIN} "virt-install --boot uefi --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
     ssh root@${NODE}.${LAB_DOMAIN} "virsh define /VirtualMachines/${HOSTNAME}.xml"
 else
     ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP_01}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none ip=${IP_02}:::${LAB_NETMASK}::eth1:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1 ${ARGS}"

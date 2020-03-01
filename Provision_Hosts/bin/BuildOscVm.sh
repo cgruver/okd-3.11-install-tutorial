@@ -7,6 +7,10 @@ case $i in
     TYPE="${i#*=}"
     shift 
     ;;
+    -r=*|--role=*)
+    ROLE="${i#*=}"
+    shift 
+    ;;
     -n=*|--hostnode=*)
     NODE="${i#*=}"
     shift 
@@ -98,7 +102,7 @@ case $TYPE in
     ;;
 esac
 
-IP=$(dig ${HOSTNAME}.${LAB_DOMAIN} +short)
+IP_01=$(dig ${HOSTNAME}.${LAB_DOMAIN} +short)
 let O_1=$(echo ${IP_01} | cut -d'.' -f1)
 let O_2=$(echo ${IP_01} | cut -d'.' -f2)
 let O_3=$(echo ${IP_01} | cut -d'.' -f3)
@@ -112,6 +116,31 @@ if [ ${TYPE} == "PXE" ]
 then
     ssh root@${NODE}.${LAB_DOMAIN} "virt-install --boot uefi --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
     ssh root@${NODE}.${LAB_DOMAIN} "virsh define /VirtualMachines/${HOSTNAME}.xml"
+    var=$(ssh root@${NODE}.${LAB_DOMAIN} "virsh -q domiflist ${HOSTNAME} | grep br0")
+    NET_MAC=$(echo ${var} | cut -d" " -f5)
+    for i in $(ssh root@${LAB_GATEWAY} "uci show dhcp | grep -w host | grep name")
+    do
+      name=$(echo $i | cut -d"'" -f2)
+      index=$(echo $i | cut -d"." -f1,2)
+      if [ ${name} == ${HOSTNAME} ]
+      then
+        echo "Removing existing DHCP Reservation for ${HOSTNAME}"
+        ssh root@${LAB_GATEWAY} "uci delete ${index} && uci commit dhcp"
+      fi
+    done
+    echo "Create DHCP Reservation"
+    ssh root@${LAB_GATEWAY} "uci add dhcp host && uci set dhcp.@host[-1].name=\"${HOSTNAME}\" && uci set dhcp.@host[-1].mac=\"${NET_MAC}\" && uci set dhcp.@host[-1].ip=\"${IP_01}\" && uci commit dhcp && /etc/init.d/dnsmasq restart && /etc/init.d/odhcpd restart"
+    IGN_FILE=${NET_MAC//:/-}
+    if [ ${ROLE} == "BOOTSTRAP" ]
+    then
+      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/ipxe.bootstrap /data/tftpboot/ipxe/ipxe.${IGN_FILE}"
+    elif [ ${ROLE} == "MASTER" ]
+    then
+      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/ipxe.master /data/tftpboot/ipxe/ipxe.${IGN_FILE}"
+    elif [ ${ROLE} == "WORKER" ]
+    then
+      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/ipxe.worker /data/tftpboot/ipxe/ipxe.${IGN_FILE}"
+    fi
 else
     ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP_01}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none ip=${IP_02}:::${LAB_NETMASK}::eth1:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1 ${ARGS}"
 fi

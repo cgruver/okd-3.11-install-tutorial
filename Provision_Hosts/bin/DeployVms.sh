@@ -43,6 +43,11 @@ do
 	ROOT_VOL=$(echo ${VARS} | cut -d',' -f6)
 	DATA_VOL=$(echo ${VARS} | cut -d',' -f7)
     ROLE=$(echo ${VARS} | cut -d',' -f8)
-	BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${INSTALL_URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${LAB_GATEWAY} -nm=${LAB_NETMASK} -d=${LAB_DOMAIN} -dns=${LAB_NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} -r=${ROLE} &
+    if [ ${TYPE} == "PXE" ]
+    then # Don't run in parallel
+        BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${INSTALL_URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${LAB_GATEWAY} -nm=${LAB_NETMASK} -d=${LAB_DOMAIN} -dns=${LAB_NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} -r=${ROLE}
+    else
+    	BuildOscVm.sh -t=${TYPE} -n=${HOST_NODE} -url=${INSTALL_URL} -vm=${HOSTNAME} -m=${MEMORY} -c=${CPU} -gw=${LAB_GATEWAY} -nm=${LAB_NETMASK} -d=${LAB_DOMAIN} -dns=${LAB_NAMESERVER} -dl=${ROOT_VOL},${DATA_VOL} -r=${ROLE} &
+    fi
 done
 

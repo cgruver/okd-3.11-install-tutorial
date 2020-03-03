@@ -18,6 +18,6 @@ By the end of this tutorial, you will have set up the following components:
 
 First: Clone this repository: `git clone https://github.com/cgruver/okd-3.11-tutorial.git`  
 
-Next: __Follow the [Tutorial](https://cgruver.github.io/okd-3.11-tutorial/)__
+Next: __Follow the [Tutorial](https://cgruver.github.io/okd-install-tutorial/)__
 
 ### Note: Use the master branch.  I have added an okd-4 branch recently that I may write about.  I am working on a UPI deployment of OKD-4.  It is VERY WIP.

@@ -30,6 +30,9 @@ firewall-cmd --add-port=80/tcp --permanent
 firewall-cmd --add-port=8080/tcp --permanent
 firewall-cmd --add-port=443/tcp --permanent
 firewall-cmd --add-port=8443/tcp --permanent
+firewall-cmd --add-port=6443/tcp --permanent
+firewall-cmd --add-port=22623/tcp --permanent
+
 firewall-cmd --reload
 setenforce 0
 systemctl start haproxy

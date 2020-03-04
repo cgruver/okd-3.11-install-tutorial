@@ -114,7 +114,7 @@ ssh root@${NODE}.${LAB_DOMAIN} "mkdir -p /VirtualMachines/${HOSTNAME}"
 
 if [ ${TYPE} == "PXE" ]
 then
-    ssh root@${NODE}.${LAB_DOMAIN} "virt-install --boot uefi --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
+    ssh root@${NODE}.${LAB_DOMAIN} "virt-install --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
     ssh root@${NODE}.${LAB_DOMAIN} "virsh define /VirtualMachines/${HOSTNAME}.xml"
     var=$(ssh root@${NODE}.${LAB_DOMAIN} "virsh -q domiflist ${HOSTNAME} | grep br0")
     NET_MAC=$(echo ${var} | cut -d" " -f5)
@@ -129,17 +129,17 @@ then
       fi
     done
     echo "Create DHCP Reservation"
-    ssh root@${LAB_GATEWAY} "uci add dhcp host && uci set dhcp.@host[-1].name=\"${HOSTNAME}\" && uci set dhcp.@host[-1].mac=\"${NET_MAC}\" && uci set dhcp.@host[-1].ip=\"${IP_01}\" && uci commit dhcp && /etc/init.d/dnsmasq restart && /etc/init.d/odhcpd restart"
+    ssh root@${LAB_GATEWAY} "uci add dhcp host && uci set dhcp.@host[-1].name=\"${HOSTNAME}\" && uci set dhcp.@host[-1].mac=\"${NET_MAC}\" && uci set dhcp.@host[-1].ip=\"${IP_01}\" && uci set dhcp.@host[-1].leasetime=\"1m\" && uci commit dhcp && /etc/init.d/dnsmasq restart && /etc/init.d/odhcpd restart"
     IGN_FILE=${NET_MAC//:/-}
     if [ ${ROLE} == "BOOTSTRAP" ]
     then
-      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/ipxe.bootstrap /data/tftpboot/ipxe/ipxe.${IGN_FILE}"
+      ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ignition/okd-4/bootstrap.ign ${INSTALL_ROOT}/fcos/ignition/${NET_MAC//:/-}.ign"
     elif [ ${ROLE} == "MASTER" ]
     then
-      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/ipxe.master /data/tftpboot/ipxe/ipxe.${IGN_FILE}"
+      ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ignition/okd-4/master.ign ${INSTALL_ROOT}/fcos/ignition/${NET_MAC//:/-}.ign"
     elif [ ${ROLE} == "WORKER" ]
     then
-      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/ipxe.worker /data/tftpboot/ipxe/ipxe.${IGN_FILE}"
+      ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ignition/okd-4/worker.ign ${INSTALL_ROOT}/fcos/ignition/${NET_MAC//:/-}.ign"
     fi
 else
     ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP_01}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none ip=${IP_02}:::${LAB_NETMASK}::eth1:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1 ${ARGS}"

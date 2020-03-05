@@ -114,7 +114,7 @@ ssh root@${NODE}.${LAB_DOMAIN} "mkdir -p /VirtualMachines/${HOSTNAME}"
 
 if [ ${TYPE} == "PXE" ]
 then
-    ssh root@${NODE}.${LAB_DOMAIN} "virt-install --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
+    ssh root@${NODE}.${LAB_DOMAIN} "virt-install --print-xml 1 --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --boot=hd,network,menu=on,useserial=on ${DISK_LIST} --network bridge=br0 --graphics none --noautoconsole --os-variant centos7.0 ${ARGS} > /VirtualMachines/${HOSTNAME}.xml"
     ssh root@${NODE}.${LAB_DOMAIN} "virsh define /VirtualMachines/${HOSTNAME}.xml"
     var=$(ssh root@${NODE}.${LAB_DOMAIN} "virsh -q domiflist ${HOSTNAME} | grep br0")
     NET_MAC=$(echo ${var} | cut -d" " -f5)
@@ -133,13 +133,16 @@ then
     IGN_FILE=${NET_MAC//:/-}
     if [ ${ROLE} == "BOOTSTRAP" ]
     then
-      ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ignition/okd-4/bootstrap.ign ${INSTALL_ROOT}/fcos/ignition/${NET_MAC//:/-}.ign"
+      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/bootstrap.ipxe /data/tftpboot/ipxe/${NET_MAC//:/-}.ipxe"
+      # ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ipxe/okd-4/bootstrap.ipxe ${INSTALL_ROOT}/fcos/ipxe/${NET_MAC//:/-}.ipxe"
     elif [ ${ROLE} == "MASTER" ]
     then
-      ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ignition/okd-4/master.ign ${INSTALL_ROOT}/fcos/ignition/${NET_MAC//:/-}.ign"
+      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/master.ipxe /data/tftpboot/ipxe/${NET_MAC//:/-}.ipxe"
+      # ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ipxe/okd-4/master.ipxe ${INSTALL_ROOT}/fcos/ipxe/${NET_MAC//:/-}.ipxe"
     elif [ ${ROLE} == "WORKER" ]
     then
-      ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ignition/okd-4/worker.ign ${INSTALL_ROOT}/fcos/ignition/${NET_MAC//:/-}.ign"
+      ssh root@${LAB_GATEWAY} "ln -s /data/tftpboot/ipxe/templates/worker.ipxe /data/tftpboot/ipxe/${NET_MAC//:/-}.ipxe"
+      # ssh root@${INSTALL_HOST_IP} "ln -s ${INSTALL_ROOT}/fcos/ipxe/okd-4/worker.ipxe ${INSTALL_ROOT}/fcos/ipxe/${NET_MAC//:/-}.ipxe"
     fi
 else
     ssh root@${NODE}.${LAB_DOMAIN} "virt-install --name ${HOSTNAME} --memory ${MEMORY} --vcpus ${CPU} --location ${INSTALL_URL}/centos ${DISK_LIST} --extra-args=\"inst.ks=${KS} ip=${IP_01}::${LAB_GATEWAY}:${LAB_NETMASK}:${HOSTNAME}.${LAB_DOMAIN}:eth0:none ip=${IP_02}:::${LAB_NETMASK}::eth1:none nameserver=${LAB_NAMESERVER} console=tty0 console=ttyS0,115200n8\" --network bridge=br0 --network bridge=br1 --graphics none --noautoconsole --os-variant centos7.0 --wait=-1 ${ARGS}"

@@ -20,4 +20,4 @@ First: Clone this repository: `git clone https://github.com/cgruver/okd-3.11-tut
 
 Next: __Follow the [Tutorial](https://cgruver.github.io/okd-3.11-install-tutorial/)__
 
-### Note: Use the master branch.  I have added an okd-4 branch recently that I may write about.  I am working on a UPI deployment of OKD-4.  It is VERY WIP.
+### Note: OKD 3.11 is so... yesterday.  If you want bleeding edge, check out OKD 4 here, [Tutorial](https://cgruver.github.io/okd4-upi-lab-setup/)
